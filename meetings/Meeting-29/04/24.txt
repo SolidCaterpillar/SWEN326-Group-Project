@@ -1,0 +1,8 @@
+Discussed project handout.
+Established each group members expected work load.
+Established the groups regular meeting time as 12:00-14:00 every Monday.
+  -  Also agreed to meet more frequently when necessary.
+Agreed on using Discord as our primary mode of communication.
+Agreed upon using Java as development language. 
+
+We also created and our group agreement document where this information is saved.
