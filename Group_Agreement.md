@@ -14,8 +14,14 @@ More in-person meetings as needed. Able to communicate directly over Discord.
 
 Outcome of meetings shall be stored within a sub-directory within GitLab.
 
+## Communication
+Communication will be through Discord and GitLab
+
 ## Task Allocation
 Progress on project shall be stored using Gitlab.
+
+## Workload
+By project completion, each member would have roughly contributed 6 hours per week on average
 
 ## Language
 We will be using Java 17.
