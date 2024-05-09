@@ -1,0 +1,4 @@
+Created folders for phases in gitlab.
+
+Created a google doc where we started writing our development plan.
+Google doc involves deciding on coding language, what format we are going to code in. 
