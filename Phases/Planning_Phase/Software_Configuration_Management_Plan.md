@@ -8,6 +8,7 @@ We are creating a Flight Management system, compliant with DO-178C and with acco
 ## Configuration Identification:
 - Use the default Branch names assigned by Gitlab
 - Use class names such that they avoid potential conflict with other classes (from packages or other team members)
+- Use meaningful Commit Messages
 
 ## Configuration Control:
 - Use Branches and Merge Requests when making changes to the code
@@ -26,4 +27,5 @@ We are creating a Flight Management system, compliant with DO-178C and with acco
 - Merge requests should be verified by at least one other member of the group, who will review the code, and ensure no bugs exist.
 
 ## Configuration Audits and Reviews
-- At regular weekly intervals, the entire code will be tested both on the personal laptops as well as the ECS University Systems to ensure compatability
+- At regular weekly intervals, the entire code will be tested both on the personal laptops as well as the ECS University Systems to ensure compatibility
+- The testing reviews will be presented to the team
