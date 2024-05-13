@@ -1,4 +1,4 @@
-# Software Development Plan
+# Software Development Plan (SDP)
 ## Introduction 
 We are creating a Flight Management system, compliant with DO-178C and with accompanying simulation software to perform testing.
 
