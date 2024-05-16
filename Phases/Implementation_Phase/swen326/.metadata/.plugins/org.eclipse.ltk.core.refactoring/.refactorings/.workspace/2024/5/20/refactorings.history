@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;SWEN326-Project-Simulator&apos; to &apos;SWEN326-Project-UI&apos;&#x0D;&#x0A;- Original element: &apos;SWEN326-Project-Simulator&apos;&#x0D;&#x0A;- Renamed element: &apos;SWEN326-Project-Simulator&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;SWEN326-Project-Simulator&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=SWEN326-Project-Simulator" name="SWEN326-Project-UI" references="true" stamp="1715844303340" version="1.0"/>
+</session>
