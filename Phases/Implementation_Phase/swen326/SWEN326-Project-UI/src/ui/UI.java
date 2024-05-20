@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.net.*;
 import java.io.*;
 
-public class simulator {
+public class UI {
 	private Socket clientSocket;
 	private PrintWriter out;
 	private BufferedReader in;
