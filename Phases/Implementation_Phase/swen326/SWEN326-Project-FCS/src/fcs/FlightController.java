@@ -1,10 +1,7 @@
 package fcs;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
 public class FlightController {
     private ServerSocket serverSocket;
@@ -13,37 +10,30 @@ public class FlightController {
     private BufferedReader in;
     
     public static void main(String[] args) {
-    	FlightController server = new FlightController();
-    	server.start(1234);
-        System.out.println("Hello world!"); //$NON-NLS-1$
+        FlightController server = new FlightController();
+        System.out.println("Server starting..."); //$NON-NLS-1$
+        server.start(1261);
     }
 
     public void start(int port) {
         try {
-		    this.serverSocket = new ServerSocket(port);
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-    	
-        try {
-		    this.clientSocket = this.serverSocket.accept();
-	    } catch (IOException e) {
-		    e.printStackTrace();
-	    }
-        try {
-			this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            this.serverSocket = new ServerSocket(port);
+            this.clientSocket = this.serverSocket.accept();
+            this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+            this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
-    public void stop() {
-         try {
-			this.in.close();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-         this.out.close();
+    public void close() {
+        try {
+            this.in.close();
+            this.out.close();
+            this.clientSocket.close();
+            this.serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
