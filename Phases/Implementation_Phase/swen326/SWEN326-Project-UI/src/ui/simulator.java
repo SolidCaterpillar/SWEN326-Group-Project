@@ -1,8 +1,11 @@
 package ui;
 
 import javax.swing.*;
-public class simulator {
+import java.net.*;
+import java.io.*;
 
+public class simulator {
+	private Socket clientSocket;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
