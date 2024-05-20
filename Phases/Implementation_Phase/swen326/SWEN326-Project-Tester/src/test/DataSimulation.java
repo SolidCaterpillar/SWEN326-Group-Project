@@ -29,12 +29,12 @@ import java.util.stream.Stream;
 public class DataSimulation {
 	public static Stream<Double> airSpeed;    // 3.2.1
 	public static Stream<Double> altitudeInFeet;    // 3.2.2
-	public static Stream<AltitudeSensor> altitudeSensors;
+	public static Stream<AttitudeSensor> attitudeSensors;
 	
 	// record to store the data used to test 3.2.3
-	record AltitudeSensor(Double pitch, Double roll,Double yaw) {
-		AltitudeSensor {
-			assert pitch >= -30 && pitch <= 30; 
+	record AttitudeSensor(Double pitch, Double roll,Double yaw) {
+		AttitudeSensor {
+			assert pitch >= -30 && pitch <= 30;
 			assert roll >= -60 && roll <= 60;
 			assert yaw >= -180 && yaw <= 180;
 		}
