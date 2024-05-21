@@ -50,27 +50,33 @@ record AttitudeSensor(DataPiece pitch, DataPiece roll, DataPiece yaw) {
 }
 
 public class TestData {
-	
-	static int counter = 0;
 
 	/*
 	 * A series of suppliers that generate potentially bad data. Can be used to feed the simulation
 	 * data that will be processed. The result can then be checked to see whether the simulation 
 	 * correctly recognizes bad data and how it responds. 
-	 */
-	static Supplier<DataPiece> airSpeeds = () -> generateBadData(0.0, 100.0); // 3.2.1, can't fly in faster than 100 mph
-	static Supplier<DataPiece> altitudeInFeets = () -> generateBadData(0.0, 30000.0); // 3.2.2
-	static Supplier<AttitudeSensor> attitudeSensors = () -> generateBadAttitudeSensor();
+	 * 
+	 * Need to finalize what the range of valid data is for each system component.
+     */
+    static Supplier<DataPiece> airSpeed = () -> generateBadData(0.0, 100.0); // 3.2.1
+    static Supplier<DataPiece> altitude = () -> generateBadData(0.0, 30000.0); // 3.2.2
+    static Supplier<DataPiece> thrust = () -> generateBadData(0.0, 5000.0); // 3.2.4
+    static Supplier<AttitudeSensor> attitudeSensor = () -> generateBadAttitudeSensor(); // 3.2.3
 
 	/**
 	 * Method to generate potentially bad data for the attitude sensors.
 	 * 
 	 * @return a new attitude sensor
 	 */
-	static AttitudeSensor generateBadAttitudeSensor() {
-		return new AttitudeSensor(generateBadData(-30.0, 30.0), generateBadData(-60.0, 60.0),
-				generateBadData(-180.0, 180.0));
+    static AttitudeSensor generateBadAttitudeSensor() {
+        return new AttitudeSensor(
+                generateBadData(-30.0, 30.0), 
+                generateBadData(-60.0, 60.0),
+                generateBadData(-180.0, 180.0)
+            );
 	}
+    
+    static int counter = 0;
 
 	/**
 	 * This method generates a 'bad' piece of data within a given range.
@@ -83,14 +89,14 @@ public class TestData {
 	 * @param upperBound, the maximum acceptable/valid value
 	 * @return a new data piece
 	 */
-	static DataPiece generateBadData(Double lowerBound, Double upperBound) {
-		assert lowerBound != null;
-		assert upperBound != null;
-		
-		// Does the severity of the bad data matter?
-		Integer salt = (int) (Math.random() * 2) + 1;
-		Double value = ++counter % salt == 0 ? upperBound + salt : lowerBound - salt;
-		return new DataPiece(value, false);
-	}
+    static DataPiece generateBadData(Double lowerBound, Double upperBound) {
+        assert lowerBound != null;
+        assert upperBound != null;
+
+        // Does the severity of the bad data matter?
+        Integer salt = (int) (Math.random() * 2) + 1;
+        Double value = ++counter % salt == 0 ? upperBound + salt : lowerBound - salt;
+        return new DataPiece(value, false);
+    }
 
 }
