@@ -6,11 +6,12 @@ public class Tester {
 	
 	static {
 		// create socket connection before running the tests
-		FCSConnection.establishConnection(1261);
+		FCSConnection.establishConnection(2000);
 		assert FCSConnection.socket != null 
 		        : "[Socket=NULL] Couldn't connect to Flight Controller.";
 		assert FCSConnection.socket.isConnected() 
 		        : "[Connection=FALSE] Failed to connect to Flight Controller.";
+		
 	}
 	
 	@Test

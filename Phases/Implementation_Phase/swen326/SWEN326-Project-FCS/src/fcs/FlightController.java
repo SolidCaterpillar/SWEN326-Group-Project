@@ -13,8 +13,25 @@ public class FlightController {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
         server.start(1261);
+        server.recieveData();
     }
 
+    //Will need to be changed, for now just checking if socket works
+    public void recieveData() {
+        String inputLine = ""; //$NON-NLS-1$
+        while(!inputLine.equals("Shutdown")) { //$NON-NLS-1$
+        try {
+                inputLine = this.in.readLine();
+                System.out.println("Recieved: " + inputLine); //$NON-NLS-1$
+            } catch (IOException e) {
+                e.printStackTrace();
+                break;
+                } finally {
+                this.close();
+            }
+        }
+    }
+    
     public void start(int port) {
         try {
             this.serverSocket = new ServerSocket(port);

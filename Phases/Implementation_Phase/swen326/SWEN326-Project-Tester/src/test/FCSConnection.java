@@ -38,5 +38,17 @@ public class FCSConnection {
 		}
     	
     }
+    
+    static String sendMessage(String msg) {
+		writer.println(msg);
+		String resp = null;
+		try {
+			resp = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resp;
+	}
 
 }
