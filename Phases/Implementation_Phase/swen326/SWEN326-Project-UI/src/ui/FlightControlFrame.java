@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.GridBagLayout;
 import java.util.List;
 
 import javax.swing.*;
@@ -13,23 +14,27 @@ public class FlightControlFrame extends JFrame{
 	private JPanel autopilotControlPanel;
 	private JPanel sensorDataDisplayPanel;
 	private JPanel hazardAlertsPanel;
+	private int height = 600;
+	private int width = 1400;
 	ImageIcon flightIcon;
 	ImageIcon map;
 	Border border;
 	
 	public FlightControlFrame(){
 		
-		this.flightIcon = new ImageIcon(FlightControlFrame.class.getResource("/Images/flight.png"));
+		this.flightIcon = new ImageIcon("Images/flight.png");
 		this.setTitle("Flight Controller");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.setSize(1200,800);
-		this.setVisible(true);
+		this.setResizable(true);
+		this.setSize(width,height);
 		this.getContentPane().setBackground(Color.BLACK);
 		this.setIconImage(flightIcon.getImage());
-		
+		// this.setLayout(null);
+		this.setSize(width, height);
 		this.addPanels();
-		//this.pack();
+		this.setVisible(true);
+		
+//		this.pack();
 	}
 	
 	
@@ -38,25 +43,30 @@ public class FlightControlFrame extends JFrame{
 		this.border = BorderFactory.createLineBorder(Color.WHITE, 3);
 		
 		flightManagementPanel = new JPanel();
-		flightManagementPanel.setBounds(0, 0, 200, 600);
+		flightManagementPanel.setBounds(0, 0, (int) ((3.0 / 14.0) * width), (int) ((3.0 / 4.0) * height));
+		flightManagementPanel.setBackground(Color.YELLOW);
 		
 		mapPanel = new JPanel();
 		this.addMap(mapPanel);
-		mapPanel.setBounds(200, 0, 800, 600);
+		mapPanel.setBounds((int) ((3.0 / 14.0) * width), 0, (int) ((8.0 / 14.0) * width), (int) ((3.0 / 4.0) * height));
 		
 		autopilotControlPanel = new JPanel();
-		autopilotControlPanel.setBounds(1000, 0, 200, 600);
+		autopilotControlPanel.setBounds((int) ((11.0 / 14.0) * width), 0, (int) ((3.0 / 14.0) * width), (int) ((3.0 / 4.0) * height));
+		autopilotControlPanel.setBackground(Color.RED);
 		
 		sensorDataDisplayPanel = new JPanel();
-		sensorDataDisplayPanel.setBounds(0, 600, 600, 200);
+		sensorDataDisplayPanel.setBounds(0, (int) ((3.0 / 4.0) * height), width / 2, height / 4);
+		sensorDataDisplayPanel.setBackground(Color.DARK_GRAY);
 		
 		hazardAlertsPanel = new JPanel();
-		hazardAlertsPanel.setBounds(600, 600, 600, 200);
+		hazardAlertsPanel.setBounds(width / 2, (int) ((3.0 / 4.0) * height), width / 2, height / 4);
+		hazardAlertsPanel.setBackground(Color.PINK);
 		
-		var panels = List.of(flightManagementPanel, mapPanel, autopilotControlPanel, sensorDataDisplayPanel, hazardAlertsPanel);
-		for (int i = 0; i < panels.size(); i++) {
-			this.add(panels.get(i));
-		}
+		this.add(flightManagementPanel);
+		this.add(mapPanel);
+		this.add(autopilotControlPanel);
+		this.add(sensorDataDisplayPanel);
+		this.add(hazardAlertsPanel);
 		
 	}
 	
@@ -64,7 +74,7 @@ public class FlightControlFrame extends JFrame{
 	// Add Map and Label to the center Panel
 	public void addMap(JPanel panel) {
 		
-		this.map = new ImageIcon(FlightControlFrame.class.getResource("/Images/world_map.jpg"));
+		this.map = new ImageIcon("Images/world_map.jpg");
 		JLabel label = new JLabel("Flight Route Map");
 		label.setIcon(this.map);
 		label.setHorizontalTextPosition(JLabel.CENTER);
