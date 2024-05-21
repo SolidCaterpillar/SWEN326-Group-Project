@@ -5,10 +5,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+@SuppressWarnings("unused")
 public class Main {
 
     private static Socket socket;
-    private static PrintWriter writer;
+	private static PrintWriter writer;
     private static BufferedReader reader;
 
     static void main(String[] args) {
