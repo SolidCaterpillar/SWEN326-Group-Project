@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -20,7 +19,7 @@ public class FlightControlFrame extends JFrame{
 	
 	public FlightControlFrame(){
 		
-		this.flightIcon = new ImageIcon(getClass().getResource("Images/flight.png"));
+		this.flightIcon = new ImageIcon(FlightControlFrame.class.getResource("/Images/flight.png"));
 		this.setTitle("Flight Controller");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -30,7 +29,7 @@ public class FlightControlFrame extends JFrame{
 		this.setIconImage(flightIcon.getImage());
 		
 		this.addPanels();
-		this.pack();
+		//this.pack();
 	}
 	
 	
@@ -64,8 +63,8 @@ public class FlightControlFrame extends JFrame{
 	
 	// Add Map and Label to the center Panel
 	public void addMap(JPanel panel) {
-		this.map = new ImageIcon(getClass().getResource("Images/world_map.jpg"));
 		
+		this.map = new ImageIcon(FlightControlFrame.class.getResource("/Images/world_map.jpg"));
 		JLabel label = new JLabel("Flight Route Map");
 		label.setIcon(this.map);
 		label.setHorizontalTextPosition(JLabel.CENTER);
