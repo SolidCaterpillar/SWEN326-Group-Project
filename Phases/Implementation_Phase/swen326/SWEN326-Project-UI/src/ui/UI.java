@@ -1,6 +1,5 @@
 package ui;
 
-import javax.swing.*;
 import java.net.*;
 import java.io.*;
 
@@ -10,18 +9,9 @@ public class UI {
 	private BufferedReader in;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		JFrame frame = new JFrame();
-		frame.setSize(800,600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		
-		simulator s = new simulator();
-		s.StartConnection("127.0.0.1", 1261);
-		String response = s.sendMessage("Test");
-		System.out.println("test");
-		System.out.println(response);
+		// Frame
+		FlightControlFrame frame = new FlightControlFrame(); 
 	}
 	
 	public void StartConnection(String ip, int port) {
