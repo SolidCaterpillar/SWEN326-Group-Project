@@ -9,7 +9,6 @@ public class UI {
 	private BufferedReader in;
 	
 	public static void main(String[] args) {
-		
 		// Frame
 		FlightControlFrame frame = new FlightControlFrame(); 
 	}
