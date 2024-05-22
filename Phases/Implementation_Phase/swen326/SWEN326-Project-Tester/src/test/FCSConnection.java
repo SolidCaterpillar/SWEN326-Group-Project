@@ -27,7 +27,7 @@ public class FCSConnection {
             e.printStackTrace();
         }
     }
-    
+   
     static void closeConnection() {
     	try {
     		socket.close();
@@ -38,8 +38,8 @@ public class FCSConnection {
 		}
     	
     }
-    
-    static String sendMessage(String msg) {
+
+    static String sendMessage(Object msg) {
 		writer.println(msg);
 		String resp = null;
 		try {
