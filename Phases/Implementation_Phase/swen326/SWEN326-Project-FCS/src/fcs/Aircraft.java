@@ -12,10 +12,28 @@ public class Aircraft {
     private double pitch;
     private double roll;
     
-    private int minThurst;
-    private int maxThurst;
+    private final int minThurst;
+    private final int maxThurst;
     
-    public Aircraft(int minThrust_, int maxThurst_) {
+    public Aircraft(double alt, double lat, double lon, int minThrust_, int maxThurst_, double yaw_) {
+        // assert the provided arguments are valid
+        assert alt >= 0;
+        assert lat >= -90 && lat <= 90;
+        assert lon >= -180 && lat <= 180;
+        assert minThrust_ >= 0;
+        assert maxThurst_ >= minThrust_;
+        assert yaw_ >= -180 && yaw_ <= 180;
+        
+        this.speed = 0;
+        this.thrust = 0;
+        this.altitude = alt;
+        this.latitude = lat;
+        this.longitude = lon;
+        
+        this.yaw = yaw_;    // yaw is relative to north
+        this.pitch = 0;    // plane starts from level
+        this.roll = 0;    // starts from level
+        
         this.minThurst = minThrust_;
         this.maxThurst = maxThurst_;
     }
