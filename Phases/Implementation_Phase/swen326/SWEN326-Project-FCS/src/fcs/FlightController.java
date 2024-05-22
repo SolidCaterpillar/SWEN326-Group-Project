@@ -2,7 +2,6 @@ package fcs;
 
 import java.io.*;
 import java.net.*;
-import java.util.Currency;
 
 public class FlightController {
     
