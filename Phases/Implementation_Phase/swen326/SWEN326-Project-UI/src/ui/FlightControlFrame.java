@@ -30,14 +30,15 @@ public class FlightControlFrame extends JFrame implements ActionListener{
     private ImageIcon autopilotFaulty;
     private Border border;
     private JCheckBox autopilotEngagedButton;
+    private double faultyAutoPilotChance = 0.2;
 
     public FlightControlFrame() {
 
         this.flightIcon = new ImageIcon("src/ui/Images/flight.png");
         this.map = new ImageIcon(new ImageIcon("src/ui/Images/world_map.jpg").getImage().getScaledInstance((int) ((8.0 / 14.0) * width), (int) ((3.0 / 4.0) * height - 35), Image.SCALE_DEFAULT));
-        this.autopilotOff = new ImageIcon("src/ui/Images/off_light.png");
-        this.autopilotOn = new ImageIcon("src/ui/Images/green_light.png");
-        this.autopilotFaulty = new ImageIcon("src/ui/Images/red_light.png");
+        this.autopilotOff = new ImageIcon(new ImageIcon("src/ui/Images/off_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        this.autopilotOn = new ImageIcon(new ImageIcon("src/ui/Images/green_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        this.autopilotFaulty = new ImageIcon(new ImageIcon("src/ui/Images/red_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
         
         this.setTitle("Flight Controller");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,9 +142,13 @@ public class FlightControlFrame extends JFrame implements ActionListener{
         
         autopilotEngagedButton.addItemListener(e -> {
         	if (e.getStateChange() == ItemEvent.SELECTED) {
-        		autopilotLight.setIcon(autopilotOn);
+        		if (Math.random() >= faultyAutoPilotChance) {
+        			this.autopilotLight.setIcon(this.autopilotOn);
+        		} else {
+        			this.autopilotLight.setIcon(this.autopilotFaulty);
+        		}
         	} else {
-        		autopilotLight.setIcon(autopilotOff);
+        		this.autopilotLight.setIcon(this.autopilotOff);
         	}
         });
      
