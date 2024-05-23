@@ -1,0 +1,16 @@
+.metadata
+bin/
+tmp/
+.settings/
+
+*.class
+*.log
+*.jar
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
