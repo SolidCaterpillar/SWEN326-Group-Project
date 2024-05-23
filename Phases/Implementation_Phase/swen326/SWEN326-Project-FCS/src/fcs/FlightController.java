@@ -27,25 +27,7 @@ public class FlightController {
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        server.start(1261);
-        server.recieveData();
-        
-    }
-
-    //Will need to be changed, for now just checking if socket works
-    public void recieveData() {
-        String inputLine = ""; //$NON-NLS-1$
-        while(!inputLine.equals("Shutdown")) { //$NON-NLS-1$
-            try {
-                inputLine = this.in.readLine();
-                System.out.println("Recieved: " + inputLine); //$NON-NLS-1$
-            } catch (IOException e) {
-                e.printStackTrace();
-                break;
-            } finally {
-                this.close();
-            }
-        }
+        server.start(1300);
     }
     
     public void start(int port) {
@@ -54,6 +36,10 @@ public class FlightController {
             this.clientSocket = this.serverSocket.accept();
             this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            
+            Thread t = new ClientHandler(this.clientSocket, this.in, this.out);
+            t.start();
+            
         }catch (IOException e) {
             e.printStackTrace();
         }
