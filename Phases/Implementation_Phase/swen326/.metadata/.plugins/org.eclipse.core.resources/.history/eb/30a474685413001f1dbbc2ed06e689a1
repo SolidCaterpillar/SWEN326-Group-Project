@@ -1,3 +1,0 @@
-@NonNullByDefault
-@org.eclipse.jdt.annotation.NonNullByDefault
-package fcs;
