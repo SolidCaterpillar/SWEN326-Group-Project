@@ -36,9 +36,9 @@ public class FlightControlFrame extends JFrame implements ActionListener{
 
         this.flightIcon = new ImageIcon("src/ui/Images/flight.png");
         this.map = new ImageIcon(new ImageIcon("src/ui/Images/world_map.jpg").getImage().getScaledInstance((int) ((8.0 / 14.0) * width), (int) ((3.0 / 4.0) * height - 35), Image.SCALE_DEFAULT));
-        this.autopilotOff = new ImageIcon("src/ui/Images/off_light.png");
-        this.autopilotOn = new ImageIcon("src/ui/Images/green_light.png");
-        this.autopilotFaulty = new ImageIcon("src/ui/Images/red_light.png");
+        this.autopilotOff = new ImageIcon(new ImageIcon("src/ui/Images/off_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        this.autopilotOn = new ImageIcon(new ImageIcon("src/ui/Images/green_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        this.autopilotFaulty = new ImageIcon(new ImageIcon("src/ui/Images/red_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
         
         this.setTitle("Flight Controller");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
