@@ -30,6 +30,7 @@ public class FlightControlFrame extends JFrame implements ActionListener{
     private ImageIcon autopilotFaulty;
     private Border border;
     private JCheckBox autopilotEngagedButton;
+    private double faultyAutoPilotChance = 0.2;
 
     public FlightControlFrame() {
 
@@ -141,9 +142,13 @@ public class FlightControlFrame extends JFrame implements ActionListener{
         
         autopilotEngagedButton.addItemListener(e -> {
         	if (e.getStateChange() == ItemEvent.SELECTED) {
-        		autopilotLight.setIcon(autopilotOn);
+        		if (Math.random() >= faultyAutoPilotChance) {
+        			this.autopilotLight.setIcon(this.autopilotOn);
+        		} else {
+        			this.autopilotLight.setIcon(this.autopilotFaulty);
+        		}
         	} else {
-        		autopilotLight.setIcon(autopilotOff);
+        		this.autopilotLight.setIcon(this.autopilotOff);
         	}
         });
      
