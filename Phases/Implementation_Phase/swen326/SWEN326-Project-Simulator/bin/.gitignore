@@ -1,4 +1,6 @@
-/Sensor.class
-/RedundantSystem.class
-/RedundantSensor.class
-/Simulator.class
+/AirspeedSensor.class
+/AirspeedSensor$1.class
+/AttitudeSensor.class
+/AttitudeSensor$1.class
+/AttitudeSensor_AHI.class
+/AttitudeSensor_AHI$1.class
