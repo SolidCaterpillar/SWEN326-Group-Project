@@ -22,9 +22,9 @@ public class Tester {
 		
 		// send the bad data to the simulation
 		String response = FCSConnection.sendMessage(as.value());
-        assert response != null;
+		Double respData = FCSConnection.getDataFromResponse(response);
 		
-		Boolean expectedSystemResponse = response.equals("");
+		Boolean expectedSystemResponse = respData == as.value();
 		
 		// 5. assert that the system correctly recognized and responded to bad data
 		assert as.isValidData() == expectedSystemResponse : "System failed to recognise bad data.";

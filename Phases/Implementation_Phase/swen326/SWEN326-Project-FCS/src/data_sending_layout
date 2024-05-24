@@ -1,0 +1,27 @@
+
+In order to send data between the sockets the flight control system must 
+be able to differentiate what data is coming from what sensor, and also 
+what the data is updating, e.g. the thrust.
+
+So we could send the data by first saying what is being updated, followed 
+by a '=' and then the actual value of the update:
+
+SPEED=500.0
+THRUST=186.5
+ALTITUDE=20340.00
+LATITUDE=53.34
+LONGITUDE=-35.00
+YAW=145.00
+PITCH=25.78
+ROLL=55.09
+
+// pseudo code for it receiving data
+
+String recv = this.in.readLine();
+String[] arr = recv.split("=");
+assert arr.length == 2;
+
+if (arr[1].charAt(0) == '-')
+	is negative number 
+
+return arr[1].toNumber	

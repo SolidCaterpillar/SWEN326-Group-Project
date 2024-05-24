@@ -50,5 +50,26 @@ public class FCSConnection {
 		}
 		return resp;
 	}
+    
+    static Double getDataFromResponse(String recv) {
+    	if (recv == null) {
+    		return 0.0;
+    	}
+    	
+		String[] arr = recv.split("=");
+    	assert arr.length == 2;
+    	
+    	Double value;
+    	if (arr[1].charAt(0) == '-') {
+    		arr[1] = arr[1].substring(1, arr[1].length());
+    		value = Double.parseDouble(arr[1]) * -1;
+    	}
+    	else {
+    		value = Double.parseDouble(arr[1]);
+    	}
+    	
+    	return value;
+    }
+    
 
 }

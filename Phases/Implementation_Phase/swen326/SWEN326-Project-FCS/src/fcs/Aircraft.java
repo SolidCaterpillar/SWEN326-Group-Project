@@ -11,7 +11,7 @@ public class Aircraft {
     private double yaw;
     private double pitch;
     private double roll;
-    
+
     private final int minThurst;
     private final int maxThurst;
     
