@@ -8,7 +8,7 @@ public class UI {
 		// Frame
 		FlightControlFrame frame = new FlightControlFrame(); 
 
-		FCSConnection socket = new FCSConnection("localhost", 1300);
+		FCSConnection socket = new FCSConnection("localhost", 1261);
 		String message = socket.sendMessage("Hello server!");
 		System.out.println(message);
 		

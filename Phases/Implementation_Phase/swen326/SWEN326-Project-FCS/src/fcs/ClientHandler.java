@@ -28,6 +28,7 @@ public class ClientHandler extends Thread{
 				recieved = this.in.readLine();
 				
 				if(recieved.equals("Hello server!")) { //$NON-NLS-1$
+					
 				}
 				this.out.println(recieved);
 			}

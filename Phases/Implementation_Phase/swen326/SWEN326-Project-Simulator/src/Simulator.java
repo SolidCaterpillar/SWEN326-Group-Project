@@ -13,6 +13,9 @@ public class Simulator {
 		System.out.println(s1.getValue());
 		System.out.println(s2.getValue());
 		
+		FCSConnection socket = new FCSConnection("localhost", 1261);
+		String message = socket.sendMessage("Hello server!");
+		System.out.println(message);
 	}
 
 }
