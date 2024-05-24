@@ -51,24 +51,19 @@ public class FCSConnection {
 		return resp;
 	}
     
-    static Double getDataFromResponse(String recv) {
+    static int getDataFromResponse(String recv) {
     	if (recv == null) {
-    		return 0.0;
+    		return 1;
     	}
-    	
-		String[] arr = recv.split("=");
+
+		String[] arr = recv.split("="); //$NON-NLS-1$
     	assert arr.length == 2;
     	
-    	Double value;
     	if (arr[1].charAt(0) == '-') {
     		arr[1] = arr[1].substring(1, arr[1].length());
-    		value = Double.parseDouble(arr[1]) * -1;
+    		return Integer.parseInt(arr[1]) * -1;
     	}
-    	else {
-    		value = Double.parseDouble(arr[1]);
-    	}
-    	
-    	return value;
+    	return Integer.parseInt(arr[1]);
     }
     
 

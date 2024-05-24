@@ -1,5 +1,7 @@
 package fcs;
 
+import fcs.FlightController.DangerState;
+
 public class Aircraft {
 
     private double speed;
@@ -43,32 +45,74 @@ public class Aircraft {
      * the new data is correct/does not violate constraints
      */
 
-    // get and update the pa=lances location, speed, and thrust
+    private static int preCondition(double newVal, double lowerBound, double upperBound) {
+    	if (newVal < lowerBound || newVal > upperBound) {
+    		FlightController.currentDangerSate = DangerState.PILOT_ACTION_NEEDED;
+    		return -1;
+    	}
+    	return 0;
+    }
+    
     public double getSpeed() { return this.speed; }
-    public void setSpeed(double speed1) { this.speed = speed1; }
+    public int setSpeed(double speed1) { 
+    	// assuming the plane can't go faster than 1000
+    	int check = preCondition(speed1, 0, 1000);
+    	if (check == 0) this.speed = speed1;
+    	return check;
+    }
     
     public double getThrust() { return this.thrust; }
-    public void setThrust(double thrust1) { this.thrust = thrust1; }
+    public int setThrust(double thrust1) { 
+    	int check = preCondition(thrust1, this.minThurst, this.maxThurst);
+    	if (check == 0) this.thrust = thrust1; 
+    	return check;
+    }
     
     public double getAltitude() { return this.altitude; }
-    public void setAltitude(double altitude1) { this.altitude = altitude1; }
+    public int setAltitude(double altitude1) {
+    	// assuming 50000 feet is the highest it can go
+    	int check = preCondition(altitude1, 0, 50000);
+    	if (check == 0) this.altitude = altitude1; 
+    	return check;
+    }
     
     public double getLatitude() { return this.latitude; }
-    public void setLatitude(double latitude1) { this.latitude = latitude1; }
+    public int setLatitude(double latitude1) {
+    	int check = preCondition(latitude1, -90, 90);
+    	if (check == 0) this.latitude = latitude1;
+    	return check;
+    }
     
     public double getLongitude() { return this.longitude; }
-    public void setLongitude(double longitude1) { this.longitude = longitude1; }
+    public int setLongitude(double longitude1) {
+    	int check = preCondition(longitude1, -180, 180);    	
+    	if (check == 0) this.longitude = longitude1; 
+        return check;
+    }
     
     // plane orientation
     public double getYaw() { return this.yaw; }
-    public void updateYaw(double yaw1) { this.yaw = yaw1; }
+    public int setYaw(double yaw1) {
+    	int check = preCondition(yaw1, -180, 180);
+    	if (check == 0) this.yaw = yaw1;
+        return check;
+
+    }
+
+    public double getRoll() { return this.roll; }
+    public int setRoll(double roll1) {
+    	int check = preCondition(roll1, -60, 60);
+    	if (check == 0) this.roll = roll1; 
+    	return check;
+    }
     
     public double getPitch() { return this.pitch; }
-    public void updatePitch(double pitch1) { this.pitch = pitch1; }
-    
-    public double getRoll() { return this.roll; }
-    public void updateRoll(double roll1) { this.roll = roll1; }
-    
+    public int setPitch(double pitch1) { 
+    	int check = preCondition(pitch1, -30, 30);
+    	if (check == 0) this.pitch = pitch1; 
+    	return check;
+    }
+        
     // min and max thrusts
     public double getMinThrust() { return this.minThurst; }
     public double getMaxThrust() { return this.maxThurst; }

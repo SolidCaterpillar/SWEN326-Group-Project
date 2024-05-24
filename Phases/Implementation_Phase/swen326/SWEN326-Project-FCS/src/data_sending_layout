@@ -6,7 +6,7 @@ what the data is updating, e.g. the thrust.
 So we could send the data by first saying what is being updated, followed 
 by a '=' and then the actual value of the update:
 
-AIRSPEED=70.0
+SPEED=500.0
 THRUST=186.5
 ALTITUDE=20340.00
 LATITUDE=53.34
