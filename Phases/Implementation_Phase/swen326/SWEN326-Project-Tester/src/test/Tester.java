@@ -14,16 +14,16 @@ public class Tester {
 	}
 	
 	@Test
-	public void draftTestBadAirSpeed() {
+	public void test1() {
 		// the following is placeholder code
 		
 		// get a piece of bad data
 		DataPiece as = TestData.airSpeed.get();
 		
 		// send the bad data to the simulation
-		String response = FCSConnection.sendMessage(as.value().toString());
+		String response = FCSConnection.sendMessage("AIRSPEED="+as.value().toString());
 		Double respData = FCSConnection.getDataFromResponse(response);
-		
+		System.out.println("received data = " + respData + ", expected = " + as.value());
 		Boolean expectedSystemResponse = respData == as.value();
 		
 		// 5. assert that the system correctly recognized and responded to bad data
@@ -31,7 +31,7 @@ public class Tester {
 	}
 	
 	@Test
-	public void draftAirSpeedDataTest() {
+	public void test2() {
 		System.out.println("Draft testing bad air speed data:");
 		for (int i = 0; i < 5; i++) {
 			AttitudeSensor as = TestData.attitudeSensor.get();
