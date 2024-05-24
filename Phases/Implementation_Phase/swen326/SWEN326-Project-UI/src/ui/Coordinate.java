@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Color;
+
 public record Coordinate(double latitude, double longitude, double altitude) {
 	
 	private static double lambda0 = 0; 
@@ -20,8 +22,9 @@ public record Coordinate(double latitude, double longitude, double altitude) {
 		return mapY;
 	}
 	
-	public int getSize(){
-		return (int) altitude;
+	public Color getColor(){
+		// Assuming Altitude in meters
+		return new Color(Integer.max(0, (int) (255 - this.altitude() / 50)), 0, Integer.min(255, (int) (this.altitude() / 50)));
 	}
 	
 }

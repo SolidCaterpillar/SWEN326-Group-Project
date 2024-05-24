@@ -3,6 +3,10 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -20,23 +24,44 @@ import javax.swing.event.ChangeListener;
 public class FlightControlFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int waypointNo = 2;
 	private JPanel mapPanel;
 	private JPanel flightManagementPanel;
     private JPanel autopilotControlPanel;
     private JPanel sensorDataDisplayPanel;
     private JPanel hazardAlertsPanel;
+    
     private int height = 600;
     private int width = 1200;
     private int mapHeight  = (int) ((3.0 / 4.0) * height - 35);
     private int mapWidth  = (int) ((8.0 / 14.0) * width);
+    
+    
+    private JTextField wayPointTextField;
     private JTextField latitudeTextField;
     private JTextField longitudeTextField;
     private JTextField altitudeTextField;
+    private JTextField speedTextField;
+    private JTextField timeTextField;
+    private boolean paintRoute = false;
+    
     private JLabel autopilotLight;
+    private JSlider altitudeSlider;
+    private JSlider speedSlider;
+    private JSlider headingSlider;
+    
+    private JLabel airspeed = new JLabel();
+    private JLabel altitude = new JLabel();
+    private JLabel pitch = new JLabel();
+    private JLabel roll = new JLabel();
+    private JLabel yaw = new JLabel();
+    private JLabel engine = new JLabel();
+    
+    private JLabel warning = new JLabel();
+    private JLabel mitigation = new JLabel();
+    private JLabel actionPlan = new JLabel();
+    
     private ImageIcon flightIcon;
     private ImageIcon map;
-    private JLabel mapLabel;
     private ImageIcon autopilotOn;
     private ImageIcon autopilotOff;
     private ImageIcon autopilotFaulty;
@@ -49,9 +74,9 @@ public class FlightControlFrame extends JFrame {
 
         this.flightIcon = new ImageIcon("src/ui/Images/flight.png");
         this.map = new ImageIcon(new ImageIcon("src/ui/Images/map.png").getImage().getScaledInstance(this.mapWidth, this.mapHeight, Image.SCALE_DEFAULT));
-        this.autopilotOff = new ImageIcon(new ImageIcon("src/ui/Images/off_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-        this.autopilotOn = new ImageIcon(new ImageIcon("src/ui/Images/green_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-        this.autopilotFaulty = new ImageIcon(new ImageIcon("src/ui/Images/red_light.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        this.autopilotOff = new ImageIcon(new ImageIcon("src/ui/Images/off_light.png").getImage().getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+        this.autopilotOn = new ImageIcon(new ImageIcon("src/ui/Images/green_light.png").getImage().getScaledInstance(75, 75, Image.SCALE_DEFAULT));
+        this.autopilotFaulty = new ImageIcon(new ImageIcon("src/ui/Images/red_light.png").getImage().getScaledInstance(75, 75, Image.SCALE_DEFAULT));
         
         this.setTitle("Flight Controller");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,6 +117,9 @@ public class FlightControlFrame extends JFrame {
         flightManagementPanel.setBorder(border);
         
         // Components
+        JLabel wayPointLabel = new JLabel("WayPoint Name:");
+        wayPointLabel.setForeground(Color.WHITE);
+        wayPointTextField = new JTextField(10);
         JLabel latitudeLabel = new JLabel("Enter Latitude:");
         latitudeLabel.setForeground(Color.WHITE);
         latitudeTextField = new JTextField(10);
@@ -101,34 +129,62 @@ public class FlightControlFrame extends JFrame {
         JLabel altitudeLabel = new JLabel("Enter Altitude:");
         altitudeLabel.setForeground(Color.WHITE);
         altitudeTextField = new JTextField(10);
+        JLabel speedLabel = new JLabel("Speed Restriction:");
+        speedLabel.setForeground(Color.WHITE);
+        speedTextField = new JTextField(10);
+        JLabel timeLabel = new JLabel("Arrival Time:");
+        timeLabel.setForeground(Color.WHITE);
+        timeTextField = new JTextField(10);
         JButton positionSubmitButton = new JButton("Submit");
         positionSubmitButton.addActionListener(e -> {
         		try {
+        			String name = this.wayPointTextField.getText();
 	        		double latitude = Double.parseDouble(this.latitudeTextField.getText());
 	    			double longitude = Double.parseDouble(this.longitudeTextField.getText());
 	    			double altitude = Double.parseDouble(this.altitudeTextField.getText());
-	    			addWayPoint(latitude, longitude, altitude);
+	    			double speed = Double.parseDouble(this.speedTextField.getText());
+	    			String time = this.timeTextField.getText();
+	    			
+	    			if (latitude > 90 || latitude < -90) throw new NumberFormatException();
+	    			if (longitude > 180 || longitude < -180) throw new NumberFormatException();
+	    			
+	    			addWayPoint(name, latitude, longitude, altitude, speed, time);
+	    			
         		} catch (NumberFormatException e1) {
-                    JOptionPane.showMessageDialog(this, "Invalid latitude or longitude format.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Invalid value or format.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
     			mapPanel.repaint();
     			});
         
+        JButton createPlanButton = new JButton("Create Plan");
+        createPlanButton.addActionListener(e -> {
+        	paintRoute = true;
+        	mapPanel.repaint();
+        });
+        
+        
+        flightManagementPanel.add(wayPointLabel);
+        flightManagementPanel.add(wayPointTextField);
         flightManagementPanel.add(latitudeLabel);
         flightManagementPanel.add(latitudeTextField);
         flightManagementPanel.add(longitudeLabel);
         flightManagementPanel.add(longitudeTextField);
         flightManagementPanel.add(altitudeLabel);
         flightManagementPanel.add(altitudeTextField);
+        flightManagementPanel.add(speedLabel);
+        flightManagementPanel.add(speedTextField);
+        flightManagementPanel.add(timeLabel);
+        flightManagementPanel.add(timeTextField);
         flightManagementPanel.add(positionSubmitButton);
+        flightManagementPanel.add(createPlanButton);
         
         return flightManagementPanel;
         
     }
     
-    private void addWayPoint(double latitude, double longitude, double altitude) {
+    private void addWayPoint(String name, double latitude, double longitude, double altitude, double speed, String time) {
     	Coordinate c1 = new Coordinate(latitude, longitude, altitude);
-		waypoints.add(new WayPoint("WP", c1));
+		waypoints.add(new WayPoint(name, c1, speed, time));
     }
     
     private JPanel getMapPanel(Border border) {
@@ -138,6 +194,7 @@ public class FlightControlFrame extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawMap(g);
+                paintRoute = false;
             }
         };
     	this.mapPanel.setBounds((int) ((3.0 / 14.0) * width), 0, this.mapWidth, this.mapHeight);
@@ -148,13 +205,22 @@ public class FlightControlFrame extends JFrame {
     
     protected void drawMap(Graphics g) {
     	g.drawImage(map.getImage(), 0, 0, null);
-    	g.setColor(Color.RED);
+    	int i = 0;
     	for (WayPoint wp : waypoints) {
-    		int x = wp.coordinate().getX(mapWidth) - wp.coordinate().getSize()/2;
-    		int y = wp.coordinate().getY(mapHeight) - wp.coordinate().getSize()/2;
-    		int size = wp.coordinate().getSize();
-            g.fillOval(x, y, size, size);
+    		int x = wp.coordinate().getX(mapWidth) - 5/2;
+    		int y = wp.coordinate().getY(mapHeight) - 5/2;
+    		g.setColor(wp.coordinate().getColor());
+    		g.fillOval(x, y, 5, 5);
             g.drawString(wp.name(), x, y);
+            g.setColor(Color.GREEN);
+            if (paintRoute) {
+            	if (i >= 1) {
+            		Graphics2D g2d = (Graphics2D) g;
+            		g2d.setStroke(new BasicStroke(2));
+            		g2d.drawLine(x + 5/2, y + 5/2, waypoints.get(i-1).coordinate().getX(mapWidth), waypoints.get(i-1).coordinate().getY(mapHeight));
+            	}
+            }
+            i++;
         }
 	}
 
@@ -167,9 +233,7 @@ public class FlightControlFrame extends JFrame {
         autopilotControlPanel.setBorder(border);
         
         // Components
-        autopilotEngagedButton = new JCheckBox("Autopilot Engaged");
-        autopilotLight = new JLabel(this.autopilotOff);
-        
+        autopilotEngagedButton = new JCheckBox("  Autopilot Engaged   ");
         autopilotEngagedButton.addItemListener(e -> {
         	if (e.getStateChange() == ItemEvent.SELECTED) {
         		if (Math.random() >= faultyAutoPilotChance) {
@@ -181,9 +245,18 @@ public class FlightControlFrame extends JFrame {
         		this.autopilotLight.setIcon(this.autopilotOff);
         	}
         });
-     
+        autopilotLight = new JLabel(this.autopilotOff);
+        
+        altitudeSlider = new JSlider(1, 0, 13000, 10000);
+        speedSlider = new JSlider(1, 0, 860, 700);
+        headingSlider = new JSlider(1, 0, 360, 0);
+        
+        
         autopilotControlPanel.add(autopilotEngagedButton);
         autopilotControlPanel.add(autopilotLight);
+        autopilotControlPanel.add(altitudeSlider);
+        autopilotControlPanel.add(speedSlider);
+        autopilotControlPanel.add(headingSlider);
         return autopilotControlPanel;
         
     }
@@ -194,6 +267,26 @@ public class FlightControlFrame extends JFrame {
         sensorDataDisplayPanel.setBounds(0, (int) ((3.0 / 4.0) * height) - 35, width / 2, height / 4 + 35);
         sensorDataDisplayPanel.setBackground(Color.DARK_GRAY);
         sensorDataDisplayPanel.setBorder(border);
+        sensorDataDisplayPanel.setLayout(new GridLayout(2,0));
+        
+        airspeed.setText("Airspeed: 0");
+        this.modifyLabel(airspeed);
+        sensorDataDisplayPanel.add(airspeed);
+        altitude.setText("Altitude: 0");
+        this.modifyLabel(altitude);
+        sensorDataDisplayPanel.add(altitude);
+        pitch.setText("Pitch: 0");
+        this.modifyLabel(pitch);
+        sensorDataDisplayPanel.add(pitch);
+        roll.setText("Roll: 0");
+        this.modifyLabel(roll);
+        sensorDataDisplayPanel.add(roll);
+        yaw.setText("Yaw: 0");
+        this.modifyLabel(yaw);
+        sensorDataDisplayPanel.add(yaw);
+        engine.setText("Engine: 0");
+        this.modifyLabel(engine);
+        sensorDataDisplayPanel.add(engine);
         return sensorDataDisplayPanel;
     	
     }
@@ -204,8 +297,35 @@ public class FlightControlFrame extends JFrame {
         hazardAlertsPanel.setBounds(width / 2, (int) ((3.0 / 4.0) * height) - 35, width / 2, height / 4 + 35);
         hazardAlertsPanel.setBackground(Color.DARK_GRAY);
         hazardAlertsPanel.setBorder(border);
+        hazardAlertsPanel.setLayout(new GridLayout(1,0));
+        
+        warning.setText("Warnings: ");
+        this.modifyLabel(warning);
+        warning.setBackground(Color.RED);
+        warning.setOpaque(true);
+        hazardAlertsPanel.add(warning);
+        
+        mitigation.setText("Mitigations: ");
+        this.modifyLabel(mitigation);
+        mitigation.setBackground(Color.ORANGE);
+        mitigation.setForeground(Color.BLACK);
+        mitigation.setOpaque(true);
+        hazardAlertsPanel.add(mitigation);
+        
+        actionPlan.setText("Action Plan:");
+        this.modifyLabel(actionPlan);
+        actionPlan.setBackground(Color.YELLOW);
+        actionPlan.setForeground(Color.BLACK);
+        actionPlan.setOpaque(true);
+        hazardAlertsPanel.add(actionPlan);
+        
         return hazardAlertsPanel;
     	
     }
 
+    private void modifyLabel(JLabel label) {
+    	label.setForeground(Color.WHITE);
+    	label.setBorder(border);
+    	label.setHorizontalAlignment(SwingConstants.CENTER);
+    }
 }
