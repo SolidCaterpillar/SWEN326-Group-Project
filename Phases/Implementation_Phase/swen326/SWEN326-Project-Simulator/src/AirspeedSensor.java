@@ -4,33 +4,33 @@ import java.util.TimerTask;
 
 public class AirspeedSensor {
 	private double airspeed;
-	private Timer timer;
+	private double output; 
+    private Timer timer;
     private Random random;
+
+    public AirspeedSensor() {
+    	this.output = 0.0;
+        this.airspeed = 0.0;
+        this.timer = new Timer();
+        this.random = new Random();
+        start();
+    }
+
+    private void start() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+            	output = simulateAirspeed();
+            }
+        }, 0, 1000);  // Update every second
+    }
+
+    private double simulateAirspeed() {
+    	double percentRange = airspeed * 0.20;
+    	double min = airspeed - percentRange;
+    	double max = airspeed + percentRange;
+        return min + (max - min) * random.nextDouble(); //generate a 20% range of random between the value of airspeed
+    }
 	
-	public AirspeedSensor() {
-		this.airspeed = 50; // 50knots
-		this.timer = new Timer();
-	    this.random = new Random();
-	}
-	
-	 public void start() {
-	        timer.schedule(new TimerTask() {
-	            @Override
-	            public void run() {
-	                System.out.println("Airspeed: " + airspeed + " knots");
-	            }
-	        }, 0, 1000);  // Update every second
-	    }
-	
-	public void accelerate(double thrust) {
-		airspeed += thrust;
-		if(airspeed > 500) {
-			airspeed = 500; 
-		}
-	} 
-	
-	public double getAirSpeed() {
-		return airspeed; 	
-	} 
 
 }

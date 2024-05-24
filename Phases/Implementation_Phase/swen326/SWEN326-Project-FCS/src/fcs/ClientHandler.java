@@ -42,6 +42,20 @@ public class ClientHandler extends Thread{
 				
 				// should this be changed to send a status code back??
 				this.out.println(sensorType + "=" + returnCode); //$NON-NLS-1$
+
+		// String recieved;
+		// String toReturn;
+		// // FlightController.ReturnCode returnCode = FlightController.ReturnCode.STABLE;
+		
+		// try {
+		// 	while(this.simulatorRunning) {
+		// 		recieved = this.in.readLine();
+		// 		//Handle received data, case switch statement perhaps to do different functions based on what is requested?
+		// 		toReturn = "Recieved message:" + recieved;
+		// 		if(recieved.equals("Hello server!")) { //$NON-NLS-1$
+		// 			toReturn = "Hello client!";
+		// 		}
+		// 		this.out.println(toReturn);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

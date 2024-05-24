@@ -29,7 +29,7 @@ public class FlightController {
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        server.start(1300);
+        server.start(1261);
     }
     
     public void start(int port) {
