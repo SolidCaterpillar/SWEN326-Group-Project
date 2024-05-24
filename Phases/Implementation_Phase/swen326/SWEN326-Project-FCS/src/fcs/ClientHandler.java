@@ -21,16 +21,18 @@ public class ClientHandler extends Thread{
 	@Override
 	public void run() {
 		String recieved;
+		String toReturn;
 		// FlightController.ReturnCode returnCode = FlightController.ReturnCode.STABLE;
 		
 		try {
 			while(this.simulatorRunning) {
 				recieved = this.in.readLine();
-				
+				//Handle received data, case switch statement perhaps to do different functions based on what is requested?
+				toReturn = "Recieved message:" + recieved;
 				if(recieved.equals("Hello server!")) { //$NON-NLS-1$
-					
+					toReturn = "Hello client!";
 				}
-				this.out.println(recieved);
+				this.out.println(toReturn);
 			}
 		} catch (IOException e) {
 			e.getMessage();
