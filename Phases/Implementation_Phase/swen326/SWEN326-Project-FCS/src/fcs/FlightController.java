@@ -5,6 +5,11 @@ import java.net.*;
 
 public class FlightController {
     
+	static enum ReturnCode {
+		STABLE,    // stable, i.e. good data was received
+		B_SPEED, B_THRUST, B_ALTITUDE, B_LATITUDE, B_LONGITUDE, B_YAW, B_PITCH, B_ROLL    // codes for bad data received
+	}
+	
     enum PilotState { 
         PILOT_CONTOL,
         AUTO_PILOT

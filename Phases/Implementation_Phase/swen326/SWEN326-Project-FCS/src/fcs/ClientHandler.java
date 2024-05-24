@@ -21,16 +21,17 @@ public class ClientHandler extends Thread{
 	@Override
 	public void run() {
 		String recieved;
-		String toReturn;
+		FlightController.ReturnCode returnCode;
 		
 		while(this.simulatorRunning) {
 			try {
 				recieved = this.in.readLine();
-				toReturn = ("Recieved message: " + recieved); //$NON-NLS-1$
+				// update the return code based on the received input
+				
+				returnCode = FlightController.ReturnCode.STABLE;
 				if(recieved.equals("Hello server!")) { //$NON-NLS-1$
-					toReturn = "Hello client!"; //$NON-NLS-1$
 				}
-				this.out.println(toReturn);
+				this.out.println(returnCode);
 				
 			} catch(IOException e) {
 				close();

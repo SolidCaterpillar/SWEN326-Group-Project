@@ -39,7 +39,7 @@ public class FCSConnection {
     	
     }
 
-    static String sendMessage(Object msg) {
+    static String sendMessage(String msg) {
 		writer.println(msg);
 		String resp = null;
 		try {

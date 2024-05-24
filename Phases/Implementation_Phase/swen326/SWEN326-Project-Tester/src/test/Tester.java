@@ -6,7 +6,7 @@ public class Tester {
 	
 	static {
 		// create socket connection before running the tests
-		FCSConnection.establishConnection(1261);
+		FCSConnection.establishConnection(1300);
 		assert FCSConnection.socket != null 
 		        : "[Socket=NULL] Couldn't connect to Flight Controller.";
 		assert FCSConnection.socket.isConnected() 
@@ -21,7 +21,7 @@ public class Tester {
 		DataPiece as = TestData.airSpeed.get();
 		
 		// send the bad data to the simulation
-		String response = FCSConnection.sendMessage(as.value());
+		String response = FCSConnection.sendMessage(as.value().toString());
 		Double respData = FCSConnection.getDataFromResponse(response);
 		
 		Boolean expectedSystemResponse = respData == as.value();
