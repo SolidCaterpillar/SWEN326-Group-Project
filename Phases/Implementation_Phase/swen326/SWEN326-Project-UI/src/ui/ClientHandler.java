@@ -27,20 +27,18 @@ public class ClientHandler extends Thread{
 	public void run() {
 		//try {
 			while(this.simulatorRunning) {
-				String message = this.fcsconnection.sendMessage("UI=SPEEDREQUEST=AAA");
-				//this.out.println(message);
+				requestValue("UI=SPEED=AAA");
+				requestValue("UI=THRUST=AAA");
+				requestValue("UI=ALTITUDE=AAA");
+				requestValue("UI=LATITUDE=AAA");
+				requestValue("UI=LONGITUDE=AAA");
+				requestValue("UI=YAW=AAA");
+				requestValue("UI=PITCH=AAA");
+				requestValue("UI=ROLL=AAA");
+			 
 				//message = this.in.readLine();    // get input 
-				String[] data = message.split("="); //$NON-NLS-1$
 				
 				// get the data from input string
-				String sensorType = data[0];
-				String value = data[1];
-				
-				System.out.println(sensorType);
-				System.out.println(value);
-				// update the state of the flight
-				this.fcsconnection.updateUI(sensorType, value);
-
 		// String recieved;
 		// String toReturn;
 		// // FlightController.ReturnCode returnCode = FlightController.ReturnCode.STABLE;
@@ -62,6 +60,17 @@ public class ClientHandler extends Thread{
 		//}
 	}
 
+	public void requestValue(String code) {
+		String message = this.fcsconnection.sendMessage(code);
+		System.out.println(message);
+		
+		String[] data = message.split("="); //$NON-NLS-1$
+		
+		String sensorType = data[0];
+		String value = data[1];
+		
+		this.fcsconnection.updateUI(sensorType, value);
+	}
 	public void close() {
 		try {
 			this.clientSocket.close();

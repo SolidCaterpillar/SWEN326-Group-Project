@@ -34,7 +34,6 @@ public class ClientHandler extends Thread{
 			    	continue;
 			    }
 				String[] data = received.split("="); //$NON-NLS-1$
-				
 				assert data.length == 3;
 				
 				String projectType = data[0];
@@ -70,12 +69,42 @@ public class ClientHandler extends Thread{
 		}
 	}
 	
+	
 	private String handleUICode(String code) {
 		String toReturn = "";
 		switch(code){
 		case "SPEED":
 			double speed = this.flightController.getAircraft().getSpeed();
 			toReturn = String.valueOf(speed);
+			break;
+		case "THRUST":
+			double thrust = this.flightController.getAircraft().getThrust();
+			toReturn = String.valueOf(thrust);
+			break;
+		case "ALTITUDE":
+			double altitude = this.flightController.getAircraft().getAltitude();
+			toReturn = String.valueOf(altitude);
+			break;
+		case "LATITUDE":
+			double latitude = this.flightController.getAircraft().getLatitude();
+			toReturn = String.valueOf(latitude);
+			break;
+		case "LONGITUDE":
+			double longitude = this.flightController.getAircraft().getLongitude();
+			toReturn = String.valueOf(longitude);
+			break;
+		case "YAW":
+			double yaw = this.flightController.getAircraft().getYaw();
+			toReturn = String.valueOf(yaw);
+			break;
+		case "PITCH":
+			double pitch = this.flightController.getAircraft().getPitch();
+			toReturn = String.valueOf(pitch);
+			break;
+		case "ROLL":
+			double roll = this.flightController.getAircraft().getRoll();
+			toReturn = String.valueOf(roll);
+			break;
 		}
 		return toReturn;
 	}

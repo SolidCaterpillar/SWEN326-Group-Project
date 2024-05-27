@@ -267,7 +267,7 @@ public class FlightControlFrame extends JFrame {
     private JPanel getSensorDataDisplayPanel(Border border) {
     	
     	sensorDataDisplayPanel = new JPanel();
-        sensorDataDisplayPanel.setBounds(0, (int) ((3.0 / 4.0) * height) - 35, width / 2, height / 4 + 35);
+        sensorDataDisplayPanel.setBounds(0, (int) ((3.0 / 4.0) * height) - 35, width / 2, height / 4 + 35 - 20);
         sensorDataDisplayPanel.setBackground(Color.DARK_GRAY);
         sensorDataDisplayPanel.setBorder(border);
         sensorDataDisplayPanel.setLayout(new GridLayout(3,0));
@@ -310,7 +310,7 @@ public class FlightControlFrame extends JFrame {
     }
     
     
-    public void updateSensorDataDisplayPanel(String sensor, double value) {
+    public void updateSensorDataDisplayPanel(String sensor, String value) {
     	
     	switch (sensor) {
 	        case "SPEED": this.airspeed.setText("AirSpeed : " + value);
