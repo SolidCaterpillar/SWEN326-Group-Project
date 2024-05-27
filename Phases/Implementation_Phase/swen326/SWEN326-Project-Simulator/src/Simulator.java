@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Simulator {
 	public static void main(String[] args) {
@@ -33,8 +35,16 @@ public class Simulator {
         SensorData sensorData = new SensorData(airspeedSensor, altitudeSensor, attitudePitch, altitudeRoll, attitudeYaw, new Engine());
 		
 		FCSConnection socket = new FCSConnection("localhost", 1261);
-		String message = socket.sendMessage("Hello server!");
-		System.out.println(message);
+		
+		Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                String message = socket.sendMessage("SPEED=500.0");
+                System.out.println(message);
+            }
+        }, 0, 1000); 
+        
 	}
 
 }

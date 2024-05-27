@@ -20,27 +20,24 @@ public class FlightController {
     
     static PilotState currentPilotState = PilotState.PILOT_CONTOL;
     static DangerState currentDangerSate = DangerState.NORMAL;   
-    
-    private ServerSocket serverSocket;
-    private Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
         
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        server.start(1261);
+        server.start(1261); // Simulator
+        server.start(1262); // Tester
+        server.start(1263); // UI
     }
     
     public void start(int port) {
     	this.aircraft = new Aircraft(0, 0, 0, 0, 500, 0);
         try {
-            this.serverSocket = new ServerSocket(port);
-            this.clientSocket = this.serverSocket.accept();
-            this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
-            this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+            ServerSocket serverSocket = new ServerSocket(port);
+            Socket clientSocket = serverSocket.accept();
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             
-            Thread t = new ClientHandler(this, this.clientSocket, this.in, this.out);
+            Thread t = new ClientHandler(this, clientSocket, in, out);
             t.start();
             
         }catch (IOException e) {
@@ -71,12 +68,12 @@ public class FlightController {
     	}
     }
     
-    public void close() {
+    public void close(ServerSocket s, Socket c, PrintWriter o, BufferedReader b) {
         try {
-            this.in.close();
-            this.out.close();
-            this.clientSocket.close();
-            this.serverSocket.close();
+            b.close();
+            c.close();
+            o.close();
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
