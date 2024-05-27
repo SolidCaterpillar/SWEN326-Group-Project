@@ -55,6 +55,9 @@ public class FlightControlFrame extends JFrame {
     private JLabel roll = new JLabel();
     private JLabel yaw = new JLabel();
     private JLabel engine = new JLabel();
+    private JLabel latitude = new JLabel();
+    private JLabel longitude = new JLabel();
+    
     
     private JLabel warning = new JLabel();
     private JLabel mitigation = new JLabel();
@@ -267,23 +270,37 @@ public class FlightControlFrame extends JFrame {
         sensorDataDisplayPanel.setBounds(0, (int) ((3.0 / 4.0) * height) - 35, width / 2, height / 4 + 35);
         sensorDataDisplayPanel.setBackground(Color.DARK_GRAY);
         sensorDataDisplayPanel.setBorder(border);
-        sensorDataDisplayPanel.setLayout(new GridLayout(2,0));
+        sensorDataDisplayPanel.setLayout(new GridLayout(3,0));
+        
+        
+        latitude.setText("Latitude: -");
+        this.modifyLabel(latitude);
+        sensorDataDisplayPanel.add(latitude);
+        
+        longitude.setText("Longitude: -");
+        this.modifyLabel(longitude);
+        sensorDataDisplayPanel.add(longitude);
+        
+        altitude.setText("Altitude: -");
+        this.modifyLabel(altitude);
+        sensorDataDisplayPanel.add(altitude);
         
         airspeed.setText("Airspeed: -");
         this.modifyLabel(airspeed);
         sensorDataDisplayPanel.add(airspeed);
-        altitude.setText("Altitude: -");
-        this.modifyLabel(altitude);
-        sensorDataDisplayPanel.add(altitude);
-        engine.setText("Engine: -");
+        
+        engine.setText("Thrust: -");
         this.modifyLabel(engine);
         sensorDataDisplayPanel.add(engine);
+        
         pitch.setText("Pitch: -");
         this.modifyLabel(pitch);
         sensorDataDisplayPanel.add(pitch);
+        
         roll.setText("Roll: -");
         this.modifyLabel(roll);
         sensorDataDisplayPanel.add(roll);
+        
         yaw.setText("Yaw: -");
         this.modifyLabel(yaw);
         sensorDataDisplayPanel.add(yaw);
@@ -291,6 +308,30 @@ public class FlightControlFrame extends JFrame {
         return sensorDataDisplayPanel;
     	
     }
+    
+    
+    public void updateSensorDataDisplayPanel(String sensor, double value) {
+    	
+    	switch (sensor) {
+	        case "SPEED": this.airspeed.setText("AirSpeed : " + value);
+	        			  break;
+	        case "THRUST": this.engine.setText("Thrust : " + value);
+	        			   break;
+	        case "ALTITUDE": this.altitude.setText("Altitude : " + value);
+	        			     break;
+	        case "LATITUDE": this.latitude.setText("Latitude : " + value);
+	        			     break;
+	        case "LONGITUDE": this.longitude.setText("Longitude : " + value);
+	        			      break;
+	        case "YAW": this.yaw.setText("Yaw : " + value);
+	        			 break;
+	        case "PITCH": this.pitch.setText("Pitch : " + value);
+	        			  break;
+	        case "ROLL": this.roll.setText("Roll : " + value);
+	        			 break;
+    	}
+    }
+    
     
     private JPanel getHazardAlertsPanel(Border border) {
     	
