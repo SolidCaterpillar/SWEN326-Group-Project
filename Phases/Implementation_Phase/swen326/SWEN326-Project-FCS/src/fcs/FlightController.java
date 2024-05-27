@@ -25,7 +25,7 @@ public class FlightController {
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        server.start(1261); // Simulator
+        //server.start(1261); // Simulator
         server.start(1262); // Tester
         server.start(1263); // UI
     }
@@ -62,17 +62,17 @@ public class FlightController {
      */
     public int updateAircraftState(String sensor, double value, boolean isTesting) {
     	//System.out.println(sensor +" RAAs" + value);
-    	//Aircraft ac = isTesting ? testAircraft : aircraft;
+    	Aircraft ac = isTesting ? testAircraft : aircraft;
     	
     	switch (sensor) {
-    	case "SPEED": return this.aircraft.setSpeed(value); //$NON-NLS-1$
-    	case "THRUST": return this.aircraft.setThrust(value); //$NON-NLS-1$
-    	case "ALTITUDE": return this.aircraft.setAltitude(value); //$NON-NLS-1$
-    	case "LATITUDE": return this.aircraft.setLatitude(value); //$NON-NLS-1$
-    	case "LONGITUDE": return this.aircraft.setLongitude(value); //$NON-NLS-1$
-    	case "YAW": return this.aircraft.setYaw(value); //$NON-NLS-1$
-    	case "PITCH": return this.aircraft.setPitch(value); //$NON-NLS-1$
-    	case "ROLL": return this.aircraft.setRoll(value); //$NON-NLS-1$
+    	case "SPEED": return ac.setSpeed(value); //$NON-NLS-1$
+    	case "THRUST": return ac.setThrust(value); //$NON-NLS-1$
+    	case "ALTITUDE": return ac.setAltitude(value); //$NON-NLS-1$
+    	case "LATITUDE": return ac.setLatitude(value); //$NON-NLS-1$
+    	case "LONGITUDE": return ac.setLongitude(value); //$NON-NLS-1$
+    	case "YAW": return ac.setYaw(value); //$NON-NLS-1$
+    	case "PITCH": return ac.setPitch(value); //$NON-NLS-1$
+    	case "ROLL": return ac.setRoll(value); //$NON-NLS-1$
 		default: return -2;
     	}
     }
