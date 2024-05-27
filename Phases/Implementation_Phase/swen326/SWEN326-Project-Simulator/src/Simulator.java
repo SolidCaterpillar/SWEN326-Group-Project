@@ -6,45 +6,50 @@ import java.util.TimerTask;
 
 public class Simulator {
 	public static void main(String[] args) {
-		List<AirspeedSensor> airspeedList = new ArrayList<AirspeedSensor>(Arrays.asList(
-	            new AirspeedSensor(), new AirspeedSensor(), new AirspeedSensor()
-	        ));
-	        
-        List<AltitudeSensor> altitudeList = new ArrayList<AltitudeSensor>(Arrays.asList(
-            new AltitudeSensor(), new AltitudeSensor(), new AltitudeSensor()
+	
+        RedundantSensor<Double> airspeedSensor = new RedundantSensor<>(Arrays.asList(
+                new AirspeedSensor(), new AirspeedSensor(), new AirspeedSensor()
+            ));
+            
+        RedundantSensor<Double> altitudeSensor = new RedundantSensor<>(Arrays.asList(
+        		new AltitudeSensor(), new AltitudeSensor(), new AltitudeSensor()
         	));
         
-        List<AttitudePitch> attitudePitchList =  new ArrayList<AttitudePitch> (Arrays.asList(
-            new AttitudePitch(), new AttitudePitch(), new AttitudePitch()
-        	));
+        RedundantSensor<Double> attitudePitch = new RedundantSensor<>(Arrays.asList(
+                new AttitudePitch(), new AttitudePitch(), new AttitudePitch()
+            ));
         
-        List<AttitudeRoll> attitudeRollList =  new ArrayList<AttitudeRoll> (Arrays.asList(
-	            new AttitudeRoll(), new AttitudeRoll(), new AttitudeRoll()
-	        ));
+        RedundantSensor<Double> attitudeRoll = new RedundantSensor<>(Arrays.asList(
+                new AttitudeRoll(), new AttitudeRoll(), new AttitudeRoll()
+            ));
         
-        List<AttitudeYaw> attitudeYawList =  new ArrayList<AttitudeYaw> (Arrays.asList(
-	            new AttitudeYaw(), new AttitudeYaw(), new AttitudeYaw()
-        	));
-	        
-        RedundantSensor<AirspeedSensor> airspeedSensor = new RedundantSensor<>(airspeedList);
-        RedundantSensor<AltitudeSensor> altitudeSensor = new RedundantSensor<>(altitudeList);
-        RedundantSensor<AttitudePitch> attitudePitch = new RedundantSensor<>(attitudePitchList);
-        RedundantSensor<AttitudeRoll> altitudeRoll = new RedundantSensor<>(attitudeRollList);
-        RedundantSensor<AttitudeYaw> attitudeYaw = new RedundantSensor<>(attitudeYawList);
-
-        SensorData sensorData = new SensorData(airspeedSensor, altitudeSensor, attitudePitch, altitudeRoll, attitudeYaw, new Engine());
+        RedundantSensor<Double> attitudeYaw= new RedundantSensor<>(Arrays.asList(
+                new AttitudeYaw(), new AttitudeYaw(), new AttitudeYaw()
+            ));
+        
+        Engine engine = new Engine();
+        
+        engine.setValue(123);
+        engine.simulate();
+        System.out.println(engine.getValue());
+            
+		//FCSConnection socket = new FCSConnection("localhost", 1261);
 		
-		FCSConnection socket = new FCSConnection("localhost", 1261);
 		
-		Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                String message = socket.sendMessage("SPEED=500.0");
-                System.out.println(message);
-            }
-        }, 0, 1000); 
-        
+		  Timer timer1 = new Timer();
+	        timer1.schedule(new TimerTask() {
+	            @Override
+	            public void run() {
+	            	//String message = socket.sendMessage("SPEED=500.0");
+	        		//System.out.println(message);
+	            	engine.simulate();
+	                 System.out.println(engine.getValue());
+	            }
+	        }, 0, 1000); 
+	        
+	        
+	 
+	        
+	    
 	}
-
 }
