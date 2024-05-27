@@ -25,8 +25,17 @@ public class TestHelper {
 		}
 	}
 	
-	public static AttitudeSensor getAttitudeSensor(boolean good) {
-		return good ? TestData.attitudeSensor.get() : TestData.badAttitudeSensor.get();
+	public static DataPiece getDataFromAttitudeSensor(AttitudeSensor as, String sensor) {
+		switch(sensor){
+		case "YAW": 
+			return as.yaw();
+		case "PITCH": 
+			return as.pitch();
+		case "ROLL": 
+			return as.roll();
+		default: 
+			return null;
+		}
 	}
 
 	static int getRetCode(String resp) {

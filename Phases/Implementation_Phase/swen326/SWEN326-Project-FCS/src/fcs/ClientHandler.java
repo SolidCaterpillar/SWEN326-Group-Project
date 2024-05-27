@@ -95,7 +95,7 @@ public class ClientHandler extends Thread{
 		case "ROLL": //$NON-NLS-1$
 			return ac.getRoll();
 		default: 
-			return 0;
+			return Double.MIN_VALUE;
 		}
 	}
 	

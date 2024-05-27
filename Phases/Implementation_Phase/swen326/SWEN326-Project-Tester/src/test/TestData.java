@@ -66,7 +66,7 @@ public class TestData {
 	 */
     static Supplier<DataPiece> badSpeed = () -> generateBadData(0.0, 1000.0); // 3.2.1
     static Supplier<DataPiece> badThrust = () -> generateBadData(0.0, 500.0); // 3.2.4
-    static Supplier<DataPiece> badAltitude = () -> generateBadData(0.0, 30000.0); // 3.2.2
+    static Supplier<DataPiece> badAltitude = () -> generateBadData(0.0, 50000.0); // 3.2.2
     static Supplier<DataPiece> badLatitude = () -> generateBadData(-90.0, 90.0); // 3.2.2
     static Supplier<DataPiece> badLongitude = () -> generateBadData(-180.0, 180.0); // 3.2.2
     static Supplier<AttitudeSensor> badAttitudeSensor = () -> generateAttitudeSensor(false); // 3.2.3
