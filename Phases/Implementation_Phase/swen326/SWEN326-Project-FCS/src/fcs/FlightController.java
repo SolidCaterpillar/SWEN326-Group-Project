@@ -25,14 +25,14 @@ public class FlightController {
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        //server.start(1261); // Simulator
+        server.start(1261); // Simulator
         server.start(1262); // Tester
         server.start(1263); // UI
     }
     
     public void start(int port) {
     	this.aircraft = new Aircraft(0, 0, 0, 0, 500, 0);
-    	this.testAircraft = new Aircraft(0, 0, 0, 0, 500, 0);
+    	this.testAircraft = new Aircraft(0, 0, 0, 0, 500, 0);  // don't change this ones max thrust value please
     	
         try {
         	ServerSocket serverSocket = new ServerSocket(port); 
@@ -62,7 +62,7 @@ public class FlightController {
      */
     public int updateAircraftState(String sensor, double value, boolean isTesting) {
     	//System.out.println(sensor +" RAAs" + value);
-    	Aircraft ac = isTesting ? testAircraft : aircraft;
+    	Aircraft ac = isTesting ? this.testAircraft : this.aircraft;
     	
     	switch (sensor) {
     	case "SPEED": return ac.setSpeed(value); //$NON-NLS-1$
@@ -90,5 +90,9 @@ public class FlightController {
     
     public Aircraft getAircraft() {
     	return this.aircraft;
+    }
+    
+    public Aircraft getTestAircraft() {
+    	return this.testAircraft;
     }
 }

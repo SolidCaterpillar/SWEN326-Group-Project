@@ -14,27 +14,21 @@ public class Tester {
 	}
 	
 	@Test
-	public void test1() {		
-		// get a piece of bad data
-		DataPiece speed = TestData.speed.get();
-		
-		// send the bad data to the simulation
-		System.out.println("SPEED="+speed.value());
-		String response = FCSConnection.sendMessage("TESTER=SPEED="+speed.value());
-		System.out.println("Response '"+response+"'");
-		int respData = FCSConnection.getDataFromResponse(response);
-		
-		// 5. assert that the system correctly recognized and responded to bad data
-		assert !speed.isValidData() && respData == -1 : "System failed to recognise bad data.";
-	}
-	
-	@Test
-	public void test2() {
-		System.out.println("Draft testing bad air speed data:");
-		for (int i = 0; i < 5; i++) {
-			AttitudeSensor as = TestData.attitudeSensor.get();
-			System.out.println(as);
+	public void testGoodSensors() {
+		for (String sensor : TestHelper.SENSORS) {
+			// get a piece of bad data
+			DataPiece data = TestHelper.getDataForSensor(sensor, true);
+			
+			// send the bad data to the simulation
+			FCSConnection.sendMessage("TESTER="+sensor+"="+data.value());
+			String sucessResponse = FCSConnection.recvMessage();
+			String dataUpdateResponse = FCSConnection.recvMessage();
+			
+			// check return code is good, and new value = data.value()
+			assert TestHelper.getRetCode(sucessResponse) == 0 : "Failed to update.";
+			assert TestHelper.getOldOrNewValue(dataUpdateResponse, 1) == data.value() : "Failed to update.";
 		}
 	}
+	
 	
 }

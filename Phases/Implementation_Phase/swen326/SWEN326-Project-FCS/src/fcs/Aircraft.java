@@ -112,7 +112,7 @@ public class Aircraft {
     	if (check == 0) this.pitch = pitch1; 
     	return check;
     }
-        
+    
     // min and max thrusts
     public double getMinThrust() { return this.minThurst; }
     public double getMaxThrust() { return this.maxThurst; }

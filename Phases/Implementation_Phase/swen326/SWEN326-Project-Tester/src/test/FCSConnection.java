@@ -39,31 +39,18 @@ public class FCSConnection {
     	
     }
 
-    static String sendMessage(String msg) {
+    static void sendMessage(String msg) {
 		writer.println(msg);
-		String resp = null;
+	}
+    
+    static String recvMessage() {
+    	String resp = null;
 		try {
 			resp = reader.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return resp;
-	}
-    
-    static int getDataFromResponse(String recv) {
-    	if (recv == null) {
-    		return 1;
-    	}
-
-		String[] arr = recv.split("="); //$NON-NLS-1$
-    	assert arr.length == 2;
-    	
-    	if (arr[1].charAt(0) == '-') {
-    		arr[1] = arr[1].substring(1, arr[1].length());
-    		return Integer.parseInt(arr[1]) * -1;
-    	}
-    	return Integer.parseInt(arr[1]);
-    }
-    
+    }   
 
 }

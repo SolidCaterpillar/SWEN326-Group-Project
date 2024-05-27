@@ -42,8 +42,16 @@ public class ClientHandler extends Thread{
 					
 				} else if("TESTER".equals(projectType)) { //$NON-NLS-1$
 					double value = stringToDouble(data[2]);
+					
+					// get the current value of this sensor in the aircraft
+					double oldValue = getAircraftData(sensorType, this.flightController.getTestAircraft());
+					
+					// update the aircraft state and retrieve the new value of the aircraft
 					int returnCode = this.flightController.updateAircraftState(sensorType, value, true);
-					this.out.println(sensorType+"="+returnCode); //$NON-NLS-1$
+					double newValue = getAircraftData(sensorType, this.flightController.getTestAircraft());
+					
+					this.out.println("SUCCESS?"+returnCode); //$NON-NLS-1$
+					this.out.println(oldValue+"="+newValue); //$NON-NLS-1$
 				} else if("SIMULATOR".equals(projectType)) { //$NON-NLS-1$
 					double value = stringToDouble(data[2]);
 					this.flightController.updateAircraftState(sensorType, value, false);
@@ -61,9 +69,33 @@ public class ClientHandler extends Thread{
 				
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			e.getMessage();
 			this.close();
 			return;
+		}
+	}
+	
+	private static double getAircraftData(String dataType, Aircraft ac) {
+		switch(dataType){
+		case "SPEED": //$NON-NLS-1$
+			return ac.getSpeed();
+		case "THRUST": //$NON-NLS-1$
+			return ac.getThrust();
+		case "ALTITUDE": //$NON-NLS-1$
+			return ac.getAltitude();
+		case "LATITUDE": //$NON-NLS-1$
+			return ac.getLatitude();
+		case "LONGITUDE": //$NON-NLS-1$
+			return ac.getLongitude();
+		case "YAW": //$NON-NLS-1$
+			return ac.getYaw();
+		case "PITCH": //$NON-NLS-1$
+			return ac.getPitch();
+		case "ROLL": //$NON-NLS-1$
+			return ac.getRoll();
+		default: 
+			return 0;
 		}
 	}
 	
