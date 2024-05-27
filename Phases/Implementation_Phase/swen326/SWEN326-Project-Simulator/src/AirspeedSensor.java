@@ -6,13 +6,14 @@ public class AirspeedSensor implements Sensor<Double>{
     private Random random;
 
     public AirspeedSensor() {
-        this.airspeed = 0.0;  
+        this.airspeed = 0.0; 
+        this.output = 0.0;
         this.random = new Random();
     }
+    
 	@Override
 	public void setValue(double value) {
 		this.airspeed = value;
-		
 	}
 	
 	@Override

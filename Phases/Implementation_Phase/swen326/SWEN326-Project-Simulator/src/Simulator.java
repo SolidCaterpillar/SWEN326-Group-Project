@@ -1,8 +1,4 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,35 +21,60 @@ public class Simulator {
                 new AttitudeRoll(), new AttitudeRoll(), new AttitudeRoll()
             ));
         
-        RedundantSensor<Double> attitudeYaw= new RedundantSensor<>(Arrays.asList(
+        RedundantSensor<Double> attitudeYaw = new RedundantSensor<>(Arrays.asList(
                 new AttitudeYaw(), new AttitudeYaw(), new AttitudeYaw()
             ));
         
         Engine engine = new Engine();
         
+        airspeedSensor.setValue(241);
+        altitudeSensor.setValue(321);
+        attitudePitch.setValue(231);
+        attitudeRoll.setValue(125);
+        attitudeYaw.setValue(234);
         engine.setValue(123);
-        engine.simulate();
-        System.out.println("fdgnfkdngkfdn"+engine.getValue());
+
             
 		FCSConnection socket = new FCSConnection("localhost", 1261);
 		
 		
-		  Timer timer1 = new Timer();
+		Timer timer1 = new Timer();
 	      timer1.schedule(new TimerTask() {
 	            @Override
 	            public void run() {
-	            	engine.simulate();
-	            	String message = socket.sendMessage("SIMULATOR=SPEED=" + engine.getValue());
-	        		System.out.println( "      "+ message);
+	            	altitudeSensor.simulate();
+	            	attitudePitch.simulate();
+	            	attitudeRoll.simulate();
+	            	attitudeYaw.simulate();
+	            	//String test = socket.sendMessage("SIMULATOR=SPEED=" + altitudeSensor.getValue());
+	            	//String altitude = socket.sendMessage("ALTITUDE=SPEED=" + altitudeSensor.getValue());
+	            	//String pitch = socket.sendMessage("PITCH=" + attitudePitch.getValue());
+	            	//String roll = socket.sendMessage("ROLL=" + attitudeRoll.getValue());
+	            	//String yaw = socket.sendMessage("YAW=" + attitudeYaw.getValue());
 	            	
-	                //System.out.println();
+	            	//System.out.println("test " +test);
+	        		//System.out.println("altitude " +altitude);
+	        		//System.out.println("pitch " +pitch);
+	        		//System.out.println("roll " +roll);
+	        		//System.out.println("yaw " +yaw);
+	            }
+	            
+	        }, 0, 500);
+	        
+		
+		
+		  Timer timer2 = new Timer();
+	      timer2.schedule(new TimerTask() {
+	            @Override
+	            public void run() {
+	            	airspeedSensor.simulate();
+	            	engine.simulate();
+	            	String airspeed = socket.sendMessage("SIMULATOR=SPEED=" + airspeedSensor.getValue());
+	            	//String thrust = socket.sendMessage("THRUST=" + airspeedSensor.getValue());
+	        		System.out.println("airspeed "+ airspeed);
+	        		//System.out.println("thrust "+ thrust);
 	            }
 	            
 	        }, 0, 1000);
-	 
-	        
-	 
-	        
-	    
 	}
 }

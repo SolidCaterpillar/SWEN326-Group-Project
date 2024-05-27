@@ -3,7 +3,6 @@ import java.util.Random;
 public class Engine {
     private double thrust;
     private double output;
-
     private Random random;
 
     public Engine() {
@@ -24,6 +23,5 @@ public class Engine {
     
     public Double getValue() {
 		return this.output;
-	}
-    
+	}    
 }
