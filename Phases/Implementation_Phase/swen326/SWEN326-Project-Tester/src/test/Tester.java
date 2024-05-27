@@ -16,15 +16,16 @@ public class Tester {
 	@Test
 	public void test1() {		
 		// get a piece of bad data
-		DataPiece as = TestData.airSpeed.get();
+		DataPiece speed = TestData.speed.get();
 		
 		// send the bad data to the simulation
-		String response = FCSConnection.sendMessage("SPEED="+as.value().toString());
-		System.out.println("WFT "+response);
+		System.out.println("SPEED="+speed.value());
+		String response = FCSConnection.sendMessage("SPEED="+speed.value());
+		System.out.println("Response '"+response+"'");
 		int respData = FCSConnection.getDataFromResponse(response);
 		
 		// 5. assert that the system correctly recognized and responded to bad data
-		assert !as.isValidData() && respData == -1 : "System failed to recognise bad data.";
+		assert !speed.isValidData() && respData == -1 : "System failed to recognise bad data.";
 	}
 	
 	@Test

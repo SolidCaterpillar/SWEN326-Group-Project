@@ -2,6 +2,7 @@ package fcs;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.ResultSet;
 
 import javax.sound.midi.Receiver;
 
@@ -27,8 +28,8 @@ public class ClientHandler extends Thread{
 	public void run() {
 		String received;
 		try {
-			while(this.simulatorRunning) {
-				received = this.in.readLine();    // get input 
+			while (this.simulatorRunning) {
+			    received = this.in.readLine();    // get input 
 				String[] data = received.split("="); //$NON-NLS-1$
 				
 				assert data.length == 2;
@@ -41,21 +42,8 @@ public class ClientHandler extends Thread{
 				int returnCode = this.flightController.updateAircraftState(sensorType, value);
 				
 				// should this be changed to send a status code back??
-				this.out.println(sensorType + "=" + returnCode); //$NON-NLS-1$
-
-		// String recieved;
-		// String toReturn;
-		// // FlightController.ReturnCode returnCode = FlightController.ReturnCode.STABLE;
-		
-		// try {
-		// 	while(this.simulatorRunning) {
-		// 		recieved = this.in.readLine();
-		// 		//Handle received data, case switch statement perhaps to do different functions based on what is requested?
-		// 		toReturn = "Recieved message:" + recieved;
-		// 		if(recieved.equals("Hello server!")) { //$NON-NLS-1$
-		// 			toReturn = "Hello client!";
-		// 		}
-		// 		this.out.println(toReturn);
+				String retStr = sensorType + "=" + returnCode;  //$NON-NLS-1$
+				this.out.println(retStr);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -67,7 +55,7 @@ public class ClientHandler extends Thread{
 	/**
 	 * Given input 'SENSOR=..." return the value
 	 * @param recv, the input
-	 * @return the input value
+	 * @return the return code of the update
 	 */
 	private double stringToDouble(String value) {
     	if (value.charAt(0) == '-') {

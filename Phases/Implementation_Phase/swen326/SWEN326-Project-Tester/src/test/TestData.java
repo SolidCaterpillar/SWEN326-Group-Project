@@ -40,7 +40,7 @@ import java.util.function.Supplier;
 
 
 //record to store a data value and whether it is valid
-record DataPiece(Number value, Boolean isValidData) {
+record DataPiece(Double value, Boolean isValidData) {
 	public String toString() { return value + " [valid data? " + isValidData + "]"; }
 }
 
@@ -58,7 +58,7 @@ public class TestData {
 	 * 
 	 * Need to finalize what the range of valid data is for each system component.
      */
-    static Supplier<DataPiece> airSpeed = () -> generateBadData(0.0, 100.0); // 3.2.1
+    static Supplier<DataPiece> speed = () -> generateBadData(0.0, 1000.0); // 3.2.1
     static Supplier<DataPiece> altitude = () -> generateBadData(0.0, 30000.0); // 3.2.2
     static Supplier<DataPiece> thrust = () -> generateBadData(0.0, 5000.0); // 3.2.4
     static Supplier<AttitudeSensor> attitudeSensor = () -> generateBadAttitudeSensor(); // 3.2.3

@@ -54,23 +54,23 @@ public class FlightController {
      * @param sensor
      * @param value
      * @return a return code, 0 for success, 
-     * 			-1 when data is invalid, 
+     * 			-1 when data is invalid,
      * 			-2 when the sensor is invalid
      */
     public int updateAircraftState(String sensor, double value) {
-    	return switch (sensor) {
-    	case "SPEED" -> this.aircraft.setSpeed(value); //$NON-NLS-1$
-    	case "THRUST" -> this.aircraft.setThrust(value); //$NON-NLS-1$
-    	case "ALTITUDE" -> this.aircraft.setAltitude(value); //$NON-NLS-1$
-    	case "LATITUDE" -> this.aircraft.setLatitude(value); //$NON-NLS-1$
-    	case "LONGITUDE" -> this.aircraft.setLongitude(value); //$NON-NLS-1$
-    	case "YAW" -> this.aircraft.setYaw(value); //$NON-NLS-1$
-    	case "PITCH" -> this.aircraft.setPitch(value); //$NON-NLS-1$
-    	case "ROLL" -> this.aircraft.setRoll(value); //$NON-NLS-1$
-		default -> -2;
-    	};
+    	switch (sensor) {
+    	case "SPEED": return this.aircraft.setSpeed(value); //$NON-NLS-1$
+    	case "THRUST": return this.aircraft.setThrust(value); //$NON-NLS-1$
+    	case "ALTITUDE": return this.aircraft.setAltitude(value); //$NON-NLS-1$
+    	case "LATITUDE": return this.aircraft.setLatitude(value); //$NON-NLS-1$
+    	case "LONGITUDE": return this.aircraft.setLongitude(value); //$NON-NLS-1$
+    	case "YAW": return this.aircraft.setYaw(value); //$NON-NLS-1$
+    	case "PITCH": return this.aircraft.setPitch(value); //$NON-NLS-1$
+    	case "ROLL": return this.aircraft.setRoll(value); //$NON-NLS-1$
+		default: return -2;
+    	}
     }
-   
+    
     public void close() {
         try {
             this.in.close();
