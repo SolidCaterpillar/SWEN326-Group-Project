@@ -22,10 +22,8 @@ public class FCSConnection {
 			Thread t = new ClientHandler(this, clientSocket, in, out);
 			t.start();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -47,7 +45,6 @@ public class FCSConnection {
 		try {
 			resp = in.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resp;
@@ -59,7 +56,6 @@ public class FCSConnection {
 			out.close();
 			clientSocket.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

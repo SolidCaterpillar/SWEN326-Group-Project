@@ -269,24 +269,25 @@ public class FlightControlFrame extends JFrame {
         sensorDataDisplayPanel.setBorder(border);
         sensorDataDisplayPanel.setLayout(new GridLayout(2,0));
         
-        airspeed.setText("Airspeed: 0");
+        airspeed.setText("Airspeed: -");
         this.modifyLabel(airspeed);
         sensorDataDisplayPanel.add(airspeed);
-        altitude.setText("Altitude: 0");
+        altitude.setText("Altitude: -");
         this.modifyLabel(altitude);
         sensorDataDisplayPanel.add(altitude);
-        pitch.setText("Pitch: 0");
-        this.modifyLabel(pitch);
-        sensorDataDisplayPanel.add(pitch);
-        roll.setText("Roll: 0");
-        this.modifyLabel(roll);
-        sensorDataDisplayPanel.add(roll);
-        yaw.setText("Yaw: 0");
-        this.modifyLabel(yaw);
-        sensorDataDisplayPanel.add(yaw);
-        engine.setText("Engine: 0");
+        engine.setText("Engine: -");
         this.modifyLabel(engine);
         sensorDataDisplayPanel.add(engine);
+        pitch.setText("Pitch: -");
+        this.modifyLabel(pitch);
+        sensorDataDisplayPanel.add(pitch);
+        roll.setText("Roll: -");
+        this.modifyLabel(roll);
+        sensorDataDisplayPanel.add(roll);
+        yaw.setText("Yaw: -");
+        this.modifyLabel(yaw);
+        sensorDataDisplayPanel.add(yaw);
+       
         return sensorDataDisplayPanel;
     	
     }
