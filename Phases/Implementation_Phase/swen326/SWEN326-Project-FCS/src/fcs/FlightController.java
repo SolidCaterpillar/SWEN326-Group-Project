@@ -17,6 +17,7 @@ public class FlightController {
     }
     
     private Aircraft aircraft;
+    private Aircraft testAircraft;
     
     static PilotState currentPilotState = PilotState.PILOT_CONTOL;
     static DangerState currentDangerSate = DangerState.NORMAL;   
@@ -24,17 +25,18 @@ public class FlightController {
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        //server.start(1261); // Simulator
+        server.start(1261); // Simulator
         server.start(1262); // Tester
         server.start(1263); // UI
     }
     
     public void start(int port) {
     	this.aircraft = new Aircraft(0, 0, 0, 0, 500, 0);
+    	this.testAircraft = new Aircraft(0, 0, 0, 0, 500, 0);
     	
-        try (ServerSocket serverSocket = new ServerSocket(port); 
-        		Socket clientSocket = serverSocket.accept()) {
-        	
+        try {
+        	ServerSocket serverSocket = new ServerSocket(port); 
+    		Socket clientSocket = serverSocket.accept();
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             
@@ -58,7 +60,10 @@ public class FlightController {
      * 			-1 when data is invalid,
      * 			-2 when the sensor is invalid
      */
-    public int updateAircraftState(String sensor, double value) {
+    public int updateAircraftState(String sensor, double value, boolean isTesting) {
+    	//System.out.println(sensor +" RAAs" + value);
+    	//Aircraft ac = isTesting ? testAircraft : aircraft;
+    	
     	switch (sensor) {
     	case "SPEED": return this.aircraft.setSpeed(value); //$NON-NLS-1$
     	case "THRUST": return this.aircraft.setThrust(value); //$NON-NLS-1$

@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,22 +33,24 @@ public class Simulator {
         
         engine.setValue(123);
         engine.simulate();
-        System.out.println(engine.getValue());
+        System.out.println("fdgnfkdngkfdn"+engine.getValue());
             
-		//FCSConnection socket = new FCSConnection("localhost", 1261);
+		FCSConnection socket = new FCSConnection("localhost", 1261);
 		
 		
 		  Timer timer1 = new Timer();
-	        timer1.schedule(new TimerTask() {
+	      timer1.schedule(new TimerTask() {
 	            @Override
 	            public void run() {
-	            	//String message = socket.sendMessage("SPEED=500.0");
-	        		//System.out.println(message);
 	            	engine.simulate();
-	                 System.out.println(engine.getValue());
+	            	String message = socket.sendMessage("SIMULATOR=SPEED=" + engine.getValue());
+	        		System.out.println( "      "+ message);
+	            	
+	                //System.out.println();
 	            }
-	        }, 0, 1000); 
-	        
+	            
+	        }, 0, 1000);
+	 
 	        
 	 
 	        

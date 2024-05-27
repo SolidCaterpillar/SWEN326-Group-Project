@@ -42,10 +42,12 @@ public class ClientHandler extends Thread{
 					
 				} else if("TESTER".equals(projectType)) { //$NON-NLS-1$
 					double value = stringToDouble(data[2]);
-					int returnCode = this.flightController.updateAircraftState(sensorType, value);
+					int returnCode = this.flightController.updateAircraftState(sensorType, value, true);
 					this.out.println(sensorType+"="+returnCode); //$NON-NLS-1$
 				} else if("SIMULATOR".equals(projectType)) { //$NON-NLS-1$
-					//this.out.println(sensorType);
+					double value = stringToDouble(data[2]);
+					this.flightController.updateAircraftState(sensorType, value, false);
+					this.out.println(received);
 				}
 				
 				
