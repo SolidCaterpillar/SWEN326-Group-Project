@@ -25,24 +25,29 @@ public class FlightController {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
         //server.start(1261); // Simulator
-        //server.start(1262); // Tester
+        server.start(1262); // Tester
         server.start(1263); // UI
     }
     
     public void start(int port) {
     	this.aircraft = new Aircraft(0, 0, 0, 0, 500, 0);
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            Socket clientSocket = serverSocket.accept();
+    	
+        try (ServerSocket serverSocket = new ServerSocket(port); 
+        		Socket clientSocket = serverSocket.accept()) {
+        	
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             
             Thread t = new ClientHandler(this, clientSocket, in, out);
             t.start();
             
+//            serverSocket.close();
+//            clientSocket.close();
         }catch (IOException e) {
             e.printStackTrace();
+            
         }
+        
     }
     /**
      * 
@@ -67,18 +72,18 @@ public class FlightController {
     	}
     }
     
-    public void close(ServerSocket s, Socket c, PrintWriter o, BufferedReader b) {
-        try {
-            b.close();
-            c.close();
-            o.close();
-            b.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void close(ServerSocket s, Socket c, PrintWriter o, BufferedReader b) {
+//        try {
+//            b.close();
+//            c.close();
+//            o.close();
+//            b.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     
     public Aircraft getAircraft() {
-    	return aircraft;
+    	return this.aircraft;
     }
 }

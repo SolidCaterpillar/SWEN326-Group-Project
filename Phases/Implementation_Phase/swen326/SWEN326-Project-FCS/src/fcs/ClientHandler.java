@@ -2,10 +2,6 @@ package fcs;
 
 import java.io.*;
 import java.net.Socket;
-import java.sql.ResultSet;
-
-import javax.sound.midi.Receiver;
-
 
 public class ClientHandler extends Thread{
 	private FlightController flightController;
@@ -38,17 +34,17 @@ public class ClientHandler extends Thread{
 				
 				String projectType = data[0];
 				String sensorType = data[1];
-				String number = data[2];
+				//String number = data[2];
 				
-				if("UI".equals(projectType)) {
-					String toReturn = sensorType + "=" + handleUICode(sensorType);
+				if("UI".equals(projectType)) { //$NON-NLS-1$
+					String toReturn = sensorType + "=" + handleUICode(sensorType); //$NON-NLS-1$
 					this.out.println(toReturn);
 					
-				} else if("TESTER".equals(projectType)) {
-					double value = this.stringToDouble(data[2]);
+				} else if("TESTER".equals(projectType)) { //$NON-NLS-1$
+					double value = stringToDouble(data[2]);
 					int returnCode = this.flightController.updateAircraftState(sensorType, value);
-					this.out.println(sensorType+"="+returnCode);
-				} else if("SIMULATOR".equals(projectType)) {
+					this.out.println(sensorType+"="+returnCode); //$NON-NLS-1$
+				} else if("SIMULATOR".equals(projectType)) { //$NON-NLS-1$
 					//this.out.println(sensorType);
 				}
 				
@@ -71,41 +67,44 @@ public class ClientHandler extends Thread{
 	
 	
 	private String handleUICode(String code) {
-		String toReturn = "";
+		String toReturn = "";  //$NON-NLS-1$ 
 		switch(code){
-		case "SPEED":
+		case "SPEED": //$NON-NLS-1$
 			double speed = this.flightController.getAircraft().getSpeed();
 			toReturn = String.valueOf(speed);
 			break;
-		case "THRUST":
+		case "THRUST": //$NON-NLS-1$
 			double thrust = this.flightController.getAircraft().getThrust();
 			toReturn = String.valueOf(thrust);
 			break;
-		case "ALTITUDE":
+		case "ALTITUDE": //$NON-NLS-1$
 			double altitude = this.flightController.getAircraft().getAltitude();
 			toReturn = String.valueOf(altitude);
 			break;
-		case "LATITUDE":
+		case "LATITUDE": //$NON-NLS-1$
 			double latitude = this.flightController.getAircraft().getLatitude();
 			toReturn = String.valueOf(latitude);
 			break;
-		case "LONGITUDE":
+		case "LONGITUDE": //$NON-NLS-1$
 			double longitude = this.flightController.getAircraft().getLongitude();
 			toReturn = String.valueOf(longitude);
 			break;
-		case "YAW":
+		case "YAW": //$NON-NLS-1$
 			double yaw = this.flightController.getAircraft().getYaw();
 			toReturn = String.valueOf(yaw);
 			break;
-		case "PITCH":
+		case "PITCH": //$NON-NLS-1$
 			double pitch = this.flightController.getAircraft().getPitch();
 			toReturn = String.valueOf(pitch);
 			break;
-		case "ROLL":
+		case "ROLL": //$NON-NLS-1$
 			double roll = this.flightController.getAircraft().getRoll();
 			toReturn = String.valueOf(roll);
 			break;
+		default: 
+			toReturn = "";  //$NON-NLS-1$
 		}
+		
 		return toReturn;
 	}
 	/**
@@ -113,7 +112,7 @@ public class ClientHandler extends Thread{
 	 * @param recv, the input
 	 * @return the return code of the update
 	 */
-	private double stringToDouble(String value) {
+	private static double stringToDouble(String value) {
     	if (value.charAt(0) == '-') {
     		String newVal = value.substring(1, value.length());
     		return Double.parseDouble(newVal) * -1;
