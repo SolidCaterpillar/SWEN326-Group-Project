@@ -24,7 +24,7 @@ public class FlightController {
     public static void main(String[] args) {
         FlightController server = new FlightController();
         System.out.println("Server starting..."); //$NON-NLS-1$
-        server.start(1261); // Simulator
+        //server.start(1261); // Simulator
         server.start(1262); // Tester
         server.start(1263); // UI
     }
@@ -44,7 +44,6 @@ public class FlightController {
             e.printStackTrace();
         }
     }
-    
     /**
      * 
      * 
@@ -77,5 +76,9 @@ public class FlightController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public Aircraft getAircraft() {
+    	return aircraft;
     }
 }

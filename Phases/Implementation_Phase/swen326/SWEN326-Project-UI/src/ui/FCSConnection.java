@@ -27,7 +27,7 @@ public class FCSConnection {
 			e.printStackTrace();
 		}
 	}
-	public void updateUI(String sensor, double value) {
+	public void updateUI(String sensor, String value) {
 		switch (sensor) {
     	case "SPEED": this.frame.updateSensorDataDisplayPanel("SPEED", value); break;
     	case "THRUST": this.frame.updateSensorDataDisplayPanel("THRUST", value); break;

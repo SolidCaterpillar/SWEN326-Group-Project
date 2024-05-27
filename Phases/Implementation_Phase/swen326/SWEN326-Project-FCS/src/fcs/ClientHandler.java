@@ -30,20 +30,38 @@ public class ClientHandler extends Thread{
 		try {
 			while (this.simulatorRunning) {
 			    received = this.in.readLine();    // get input 
+			    if (received == null) {
+			    	continue;
+			    }
 				String[] data = received.split("="); //$NON-NLS-1$
 				
-				assert data.length == 2;
+				assert data.length == 3;
 				
-				// get the data from input string
-				String sensorType = data[0];
-				double value = this.stringToDouble(data[1]);
+				String projectType = data[0];
+				String sensorType = data[1];
+				String number = data[2];
+				
+				if("UI".equals(projectType)) {
+					String toReturn = sensorType + "=" + handleUICode(sensorType);
+					this.out.println(toReturn);
+					
+				} else if("TESTER".equals(projectType)) {
+					double value = this.stringToDouble(data[2]);
+					int returnCode = this.flightController.updateAircraftState(sensorType, value);
+					this.out.println(sensorType+"="+returnCode);
+				} else if("SIMULATOR".equals(projectType)) {
+					//this.out.println(sensorType);
+				}
+				
+				
+				//double value = this.stringToDouble(data[1]);
 				
 				// update the state of the flight
-				int returnCode = this.flightController.updateAircraftState(sensorType, value);
+				
 				
 				// should this be changed to send a status code back??
-				String retStr = sensorType + "=" + returnCode;  //$NON-NLS-1$
-				this.out.println(retStr);
+				//String retStr = sensorType + "=" + returnCode;  //$NON-NLS-1$
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -52,6 +70,15 @@ public class ClientHandler extends Thread{
 		}
 	}
 	
+	private String handleUICode(String code) {
+		String toReturn = "";
+		switch(code){
+		case "SPEED":
+			double speed = this.flightController.getAircraft().getSpeed();
+			toReturn = String.valueOf(speed);
+		}
+		return toReturn;
+	}
 	/**
 	 * Given input 'SENSOR=..." return the value
 	 * @param recv, the input

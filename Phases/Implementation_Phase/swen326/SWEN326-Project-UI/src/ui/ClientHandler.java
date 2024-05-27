@@ -25,18 +25,19 @@ public class ClientHandler extends Thread{
 	
 	@Override
 	public void run() {
-		String received;
-		try {
+		//try {
 			while(this.simulatorRunning) {
-				received = this.in.readLine();    // get input 
-				String[] data = received.split("="); //$NON-NLS-1$
-				
-				assert data.length == 2;
+				String message = this.fcsconnection.sendMessage("UI=SPEEDREQUEST=AAA");
+				//this.out.println(message);
+				//message = this.in.readLine();    // get input 
+				String[] data = message.split("="); //$NON-NLS-1$
 				
 				// get the data from input string
 				String sensorType = data[0];
-				double value = this.stringToDouble(data[1]);
+				String value = data[1];
 				
+				System.out.println(sensorType);
+				System.out.println(value);
 				// update the state of the flight
 				this.fcsconnection.updateUI(sensorType, value);
 
@@ -47,32 +48,19 @@ public class ClientHandler extends Thread{
 		// try {
 		// 	while(this.simulatorRunning) {
 		// 		recieved = this.in.readLine();
-		// 		//Handle received data, case switch statement perhaps to do different functions based on what is requested?
+		// 		//Handle rethis.speed = 0;ceived data, case switch statement perhaps to do different functions based on what is requested?
 		// 		toReturn = "Recieved message:" + recieved;
 		// 		if(recieved.equals("Hello server!")) { //$NON-NLS-1$
 		// 			toReturn = "Hello client!";
 		// 		}
 		// 		this.out.println(toReturn);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			this.close();
-			return;
-		}
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//	this.close();
+		//	return;
+		//}
 	}
-	
-	/**
-	 * Given input 'SENSOR=..." return the value
-	 * @param recv, the input
-	 * @return the input value
-	 */
-	private double stringToDouble(String value) {
-    	if (value.charAt(0) == '-') {
-    		String newVal = value.substring(1, value.length());
-    		return Double.parseDouble(newVal) * -1;
-    	}
-    	return Double.parseDouble(value);
-    }
 
 	public void close() {
 		try {

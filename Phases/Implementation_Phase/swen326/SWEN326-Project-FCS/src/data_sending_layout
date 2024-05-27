@@ -6,7 +6,10 @@ what the data is updating, e.g. the thrust.
 So we could send the data by first saying what is being updated, followed 
 by a '=' and then the actual value of the update:
 
-SPEED=500.0
+UI=SPEED=500.0
+TESTER=SPEED=500.0
+SIMULATOR=SPEED=500.0
+
 THRUST=186.5
 ALTITUDE=20340.00
 LATITUDE=53.34
@@ -14,6 +17,7 @@ LONGITUDE=-35.00
 YAW=145.00
 PITCH=25.78
 ROLL=55.09
+
 
 // pseudo code for it receiving data
 

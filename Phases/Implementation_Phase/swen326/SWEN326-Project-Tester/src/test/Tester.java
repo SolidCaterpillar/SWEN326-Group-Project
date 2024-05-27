@@ -20,7 +20,7 @@ public class Tester {
 		
 		// send the bad data to the simulation
 		System.out.println("SPEED="+speed.value());
-		String response = FCSConnection.sendMessage("SPEED="+speed.value());
+		String response = FCSConnection.sendMessage("TESTER=SPEED="+speed.value());
 		System.out.println("Response '"+response+"'");
 		int respData = FCSConnection.getDataFromResponse(response);
 		

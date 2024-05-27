@@ -9,14 +9,6 @@ public class UI {
 		FlightControlFrame frame = new FlightControlFrame(); 
 
 		FCSConnection socket = new FCSConnection("localhost", 1263, frame);
-		String message = socket.sendMessage("Hello server!");
-		System.out.println(message);
-		
-		message = socket.sendMessage("Test multiple messages!");
-		System.out.println(message);
-
 	}
-	
-	
 }
 
