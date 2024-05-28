@@ -48,11 +48,11 @@ public class Tester {
 
 			// send the update to the fcs
 			FCSConnection.sendMessage("TESTER=" + sensor + "=" + data.value());
-			String sucessResponse = FCSConnection.recvMessage();
+			String successResponse = FCSConnection.recvMessage();
 			String dataUpdateResponse = FCSConnection.recvMessage();
 
 			// check return code is good, and new value = data.value()
-			assert TestHelper.getRetCode(sucessResponse) == 0 : "Failed to update.";
+			assert TestHelper.getRetCode(successResponse) == 0 : "Failed to update.";
 			assert TestHelper.getOldOrNewValue(dataUpdateResponse, 1) == data.value() : "Failed to update.";
 		}
 	}

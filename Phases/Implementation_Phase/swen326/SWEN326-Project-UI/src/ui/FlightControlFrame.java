@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
 
 public class FlightControlFrame extends JFrame {
 
+	// Panels
 	private static final long serialVersionUID = 1L;
 	private JPanel mapPanel;
 	private JPanel flightManagementPanel;
@@ -30,12 +31,13 @@ public class FlightControlFrame extends JFrame {
     private JPanel sensorDataDisplayPanel;
     private JPanel hazardAlertsPanel;
     
+    // Dimensions
     private int height = 600;
     private int width = 1200;
     private int mapHeight  = (int) ((3.0 / 4.0) * height - 35);
     private int mapWidth  = (int) ((8.0 / 14.0) * width);
     
-    
+    // Text Fields on the Flight Management Panel
     private JTextField wayPointTextField;
     private JTextField latitudeTextField;
     private JTextField longitudeTextField;
@@ -44,11 +46,15 @@ public class FlightControlFrame extends JFrame {
     private JTextField timeTextField;
     private boolean paintRoute = false;
     
+    // AutoPilot Panel
+    private JCheckBox autopilotEngagedButton;
+    private double faultyAutoPilotChance = 0.2;
     private JLabel autopilotLight;
     private JSlider altitudeSlider;
     private JSlider speedSlider;
     private JSlider headingSlider;
     
+    // Sensor Display Panel
     private JLabel airspeed = new JLabel();
     private JLabel altitude = new JLabel();
     private JLabel pitch = new JLabel();
@@ -58,21 +64,25 @@ public class FlightControlFrame extends JFrame {
     private JLabel latitude = new JLabel();
     private JLabel longitude = new JLabel();
     
-    
+    // Hazard Panel
     private JLabel warning = new JLabel();
     private JLabel mitigation = new JLabel();
     private JLabel actionPlan = new JLabel();
     
+    // Images
     private ImageIcon flightIcon;
     private ImageIcon map;
     private ImageIcon autopilotOn;
     private ImageIcon autopilotOff;
     private ImageIcon autopilotFaulty;
+    
     private Border border;
-    private JCheckBox autopilotEngagedButton;
-    private double faultyAutoPilotChance = 0.2;
     private ArrayList<WayPoint> waypoints = new ArrayList<>(); 
 
+    
+    /**
+     * Constructor for the JFrame
+     */
     public FlightControlFrame() {
 
         this.flightIcon = new ImageIcon("src/ui/Images/flight.png");
@@ -93,7 +103,10 @@ public class FlightControlFrame extends JFrame {
 
     }
 
-    // Add all the panels to the JFrame
+    
+    /**
+     * Adds the panels to the JFrame
+     */
     private void addPanels() {
         this.border = BorderFactory.createLineBorder(Color.WHITE, 3);
 
@@ -111,6 +124,11 @@ public class FlightControlFrame extends JFrame {
     }
     
     
+    /**
+     * Return Flight Management Panel with input fields to add a way spoint
+     * @param border
+     * @return The Flight Management Panel
+     */
     private JPanel getFlightManagementPanel(Border border) {
     	
     	// Panel
@@ -185,11 +203,27 @@ public class FlightControlFrame extends JFrame {
         
     }
     
+    
+    /**
+     * Add a waypoint to the list of waypoints using coordinates
+     * @param name
+     * @param latitude
+     * @param longitude
+     * @param altitude
+     * @param speed
+     * @param time
+     */
     private void addWayPoint(String name, double latitude, double longitude, double altitude, double speed, String time) {
     	Coordinate c1 = new Coordinate(latitude, longitude, altitude);
 		waypoints.add(new WayPoint(name, c1, speed, time));
     }
     
+    
+    /**
+     * Get map panel where the map and way-points will be drawn
+     * @param border
+     * @return Return map panel
+     */
     private JPanel getMapPanel(Border border) {
     	
     	this.mapPanel = new JPanel(){
@@ -206,6 +240,11 @@ public class FlightControlFrame extends JFrame {
         
     }
     
+    
+    /**
+     * Draw way-points on the map
+     * @param g Graphics 2D
+     */
     protected void drawMap(Graphics g) {
     	g.drawImage(map.getImage(), 0, 0, null);
     	int i = 0;
@@ -227,6 +266,12 @@ public class FlightControlFrame extends JFrame {
         }
 	}
 
+    
+    /**
+     * Get Autopilot Control Panel
+     * @param border
+     * @return the panel
+     */
 	private JPanel getAutopilotControlPanel(Border border) {
     	
     	// Panel
@@ -264,6 +309,12 @@ public class FlightControlFrame extends JFrame {
         
     }
     
+	
+	/**
+	 * Get the sensor Data Display Panel
+	 * @param border
+	 * @return the panel with a 3 by 3 layout for each
+	 */
     private JPanel getSensorDataDisplayPanel(Border border) {
     	
     	sensorDataDisplayPanel = new JPanel();
@@ -310,10 +361,17 @@ public class FlightControlFrame extends JFrame {
     }
     
     
+    /**
+     * Update the Sensor JLabel to display the new updated value
+     * @param sensor the specific JLabel to be updated
+     * @param value to which the JLabel is updated
+     */
     public void updateSensorDataDisplayPanel(String sensor, String value) {
     	
     	switch (sensor) {
-	        case "SPEED": this.airspeed.setText("AirSpeed : " + value);
+	        case "SPEED": this.airspeed.setForeground(Color.BLUE);
+	        			  this.airspeed.setText("AirSpeed : " + value);
+	        			  this.airspeed.setForeground(Color.BLACK);
 	        			  break;
 	        case "THRUST": this.engine.setText("Thrust : " + value);
 	        			   break;
@@ -333,6 +391,11 @@ public class FlightControlFrame extends JFrame {
     }
     
     
+    /**
+     * Return the Hazards Panel which indicates the different hazards
+     * @param border
+     * @return
+     */
     private JPanel getHazardAlertsPanel(Border border) {
     	
     	hazardAlertsPanel = new JPanel();
@@ -365,10 +428,16 @@ public class FlightControlFrame extends JFrame {
     	
     }
 
+    
+    /**
+     * Formats a JLabel according to the UI theme
+     * @param label the JLabel to be modified
+     */
     private void modifyLabel(JLabel label) {
     	label.setForeground(Color.WHITE);
     	label.setBorder(border);
     	label.setHorizontalAlignment(SwingConstants.CENTER);
     }
+    
 }
 
