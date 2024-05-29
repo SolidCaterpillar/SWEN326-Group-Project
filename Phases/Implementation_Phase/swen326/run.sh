@@ -4,7 +4,10 @@ javac SWEN326-Project-FCS/src/fcs/Aircraft.java SWEN326-Project-FCS/src/fcs/Clie
 
 # fcs -> simulator -> tester -> ui
 
+jar cvf junit-platform-console-standalone-1.7.2.jar -C SWEN326-Project-FCS/src .
+
+junit-platform-console-standalone-1.7.2.jar
 java SWEN326-Project-FCS/src/fcs/FlightController
 java SWEN326-Project-Simulator/src/Simulator
-java -jar junit-platform-console-standalone-1.7.2.jar --class-path target --select-class SWEN326-Project-Tester/src/test/Tester
+
 java SWEN326-Project-UI/src/ui/UI

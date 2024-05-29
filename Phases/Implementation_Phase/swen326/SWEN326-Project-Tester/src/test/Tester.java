@@ -12,9 +12,9 @@ public class Tester {
 	}
 
 	/**
-	 * generate a good sensor and check that the return code of sending 
-	 * the data is the success code, and that the sensor post state
-	 * is == to the data it was given
+	 * For every aircraft sensor, generate a good piece of sensor data and check 
+	 * that the return code of applying the data is the success code (0), and that 
+	 * the sensor data is reassigned to equal the good data it was given
 	 */
 	@Test
 	public void test1GoodSensors() {
@@ -26,10 +26,12 @@ public class Tester {
 			FCSConnection.sendMessage("TESTER=" + sensor + "=" + data.value());
 			String sucessResponse = FCSConnection.recvMessage();
 			String dataUpdateResponse = FCSConnection.recvMessage();
-
+			
+			double newValue = TestHelper.getOldOrNewValue(dataUpdateResponse, 1);
+			
 			// check return code is good, and new value = data.value()
 			assert TestHelper.getRetCode(sucessResponse) == 0 : "Failed to update.";
-			assert TestHelper.getOldOrNewValue(dataUpdateResponse, 1) == data.value() : "Failed to update.";
+			assert newValue == data.value() : "Failed to update.";
 		}
 	}
 
@@ -50,10 +52,12 @@ public class Tester {
 			FCSConnection.sendMessage("TESTER=" + sensor + "=" + data.value());
 			String successResponse = FCSConnection.recvMessage();
 			String dataUpdateResponse = FCSConnection.recvMessage();
+			
+			double newValue = TestHelper.getOldOrNewValue(dataUpdateResponse, 1);
 
 			// check return code is good, and new value = data.value()
 			assert TestHelper.getRetCode(successResponse) == 0 : "Failed to update.";
-			assert TestHelper.getOldOrNewValue(dataUpdateResponse, 1) == data.value() : "Failed to update.";
+			assert newValue == data.value() : "Failed to update.";
 		}
 	}
 
@@ -116,7 +120,7 @@ public class Tester {
 	 */
 	@Test
 	public void test5BadSensorNames() {
-		for (String sensor : TestHelper.SENSORS) {		
+		for (String sensor : TestHelper.SENSORS) {
 			DataPiece data = TestHelper.getDataForSensor(sensor, true);
 			
 			// make a bad sensor name
