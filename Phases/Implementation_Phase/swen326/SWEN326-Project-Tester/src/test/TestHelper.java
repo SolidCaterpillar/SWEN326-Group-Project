@@ -64,12 +64,14 @@ public class TestHelper {
 	static int getRetCode(String resp) {
 		assert resp != null;
 		String[] arr = resp.split("\\?");
+		assert arr.length == 2;
 	    return Integer.valueOf(arr[1]);
-//	    if (arr[1].charAt(0) == '-') {
-//	    	arr[1] = arr[1].substring(1, arr[1].length());
-//	    	return Integer.parseInt(arr[1]) * -1;
-//	    }
-//	    return Integer.parseInt(arr[1]);
+	    
+	    //if (arr[1].charAt(0) == '-') {
+	    //	arr[1] = arr[1].substring(1, arr[1].length());
+	    //	return Integer.parseInt(arr[1]) * -1;
+	    //}
+	    //return Integer.parseInt(arr[1]);
 	}
 	/**
 	 * Given a response from the flight controller of the form:
@@ -82,12 +84,14 @@ public class TestHelper {
 	 */
 	static double getOldOrNewValue(String resp, int idx) {
 	    assert resp != null;
+	    assert idx == 0 || idx == 1;
 		String[] arr = resp.split("=");
+		assert arr.length == 2;
+		return Double.valueOf(arr[idx]);
 	    	
-//	    if (arr[idx].charAt(0) == '-') {
-//	    	arr[idx] = arr[idx].substring(1, arr[idx].length());
-//	    	return Double.parseDouble(arr[idx]) * -1;
-//	    }
-	    return Double.valueOf(arr[idx]);
+	    //if (arr[idx].charAt(0) == '-') {
+	    //	arr[idx] = arr[idx].substring(1, arr[idx].length());
+	    //	return Double.parseDouble(arr[idx]) * -1;
+	    //}
 	}
 }

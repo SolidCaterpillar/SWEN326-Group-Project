@@ -30,8 +30,8 @@ public class Tester {
 			double newValue = TestHelper.getOldOrNewValue(dataUpdateResponse, 1);
 			
 			// check return code is good, and new value = data.value()
-			assert TestHelper.getRetCode(sucessResponse) == 0 : "Failed to update.";
-			assert newValue == data.value() : "Failed to update.";
+			assert TestHelper.getRetCode(sucessResponse) == 0 : "Failed to update: "+sensor;
+			assert newValue == data.value() : "Failed to update: "+sensor;
 		}
 	}
 
@@ -56,8 +56,8 @@ public class Tester {
 			double newValue = TestHelper.getOldOrNewValue(dataUpdateResponse, 1);
 
 			// check return code is good, and new value = data.value()
-			assert TestHelper.getRetCode(successResponse) == 0 : "Failed to update.";
-			assert newValue == data.value() : "Failed to update.";
+			assert TestHelper.getRetCode(successResponse) == 0 : "Failed to update: "+sensor;
+			assert newValue == data.value() : "Failed to update: "+sensor;
 		}
 	}
 
@@ -81,8 +81,8 @@ public class Tester {
 			double after = TestHelper.getOldOrNewValue(dataUpdateResponse, 1);
 
 			// check return code is bad, and sensor was not updated
-			assert TestHelper.getRetCode(sucessResponse) == -1 : "Updated sensor with bad data!";
-			assert before == after : "Updated sensor with bad data!";
+			assert TestHelper.getRetCode(sucessResponse) == -1 : "Updated sensor["+sensor+"] with bad data!" ;
+			assert before == after : "Updated sensor["+sensor+"] with bad data!";
 		}
 	}
 
@@ -109,7 +109,7 @@ public class Tester {
 
 			// check return code is bad, and sensor was not updated
 			assert TestHelper.getRetCode(sucessResponse) == -1 : "Updated for bad data!";
-			assert before == after : "Updated sensor with bad data!";
+			assert before == after : "Updated sensor["+sensor+"] with bad data!";
 		}
 	}
 
@@ -135,8 +135,8 @@ public class Tester {
 			double after = TestHelper.getOldOrNewValue(dataUpdateResponse, 1);
 
 			// check return code is bad, and sensor was not updated, and that no sensor was ever read
-			assert TestHelper.getRetCode(sucessResponse) == -2 : "Updated sensor with bad data!";
-			assert before == after : "Updated sensor with bad data!";
+			assert TestHelper.getRetCode(sucessResponse) == -2 : "Updated sensor["+sensor+"] with bad name!";
+			assert before == after : "Updated sensor["+sensor+"]with bad name!";
 			assert before == Double.MIN_VALUE : "incorrect return for bad data";
 		}
 	}

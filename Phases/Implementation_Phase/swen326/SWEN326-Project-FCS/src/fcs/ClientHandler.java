@@ -20,6 +20,14 @@ public class ClientHandler extends Thread{
 		this.simulatorRunning = true;
 	}
 	
+	/**
+	 * While the program is running read in some input from either the 
+	 * UI, Tester, or Simulation. The data will be in the form:
+	 * PROJECT=SENSOR=VALUE
+	 * With PROJECT representing the module that the data has come from, 
+	 * SENSOR representing the sensor of the aircraft that is receiving 
+	 * the data, and VALUE representing the new piece of data itself.
+	 */
 	@Override
 	public void run() {
 		String received;
