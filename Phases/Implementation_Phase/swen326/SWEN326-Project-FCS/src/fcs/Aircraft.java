@@ -79,7 +79,7 @@ public class Aircraft {
     public double getAltitude() { return this.altitude; }
     public int setAltitude(double altitude1) {
     	// assuming 50000 feet is the highest it can go
-    	int check = preCondition(altitude1, 0, 50000);
+    	int check = preCondition(altitude1, 0, 30000);
     	if (check == 0) this.altitude = altitude1; 
     	return check;
     }
