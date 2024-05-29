@@ -36,5 +36,7 @@ RETURN_CODE ::= 0 | -1 | -2
 DATA_RESPONSE ::= VALUE "=" VALUE
 VALUE         ::= \d*.\d*
 
- 3) The simulator does 
+ 3) The simulator currently receives a response from the FCS,
+    however, the response itself is never unpacked or utilised. 
+    [UPDATE?] 
 
