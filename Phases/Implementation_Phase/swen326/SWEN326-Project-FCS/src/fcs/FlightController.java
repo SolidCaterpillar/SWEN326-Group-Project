@@ -73,6 +73,14 @@ public class FlightController {
     	}
     }
     
+    public void updateThrust(double d) {
+    	this.aircraft.setThrust(d);
+    }
+    
+    public void updateAltitude(double d) {
+    	this.aircraft.setAltitude(d);
+    }
+    
     public void updateAutopilotStatus(double d) {
 		this.aircraft.setAutopilotStatus(d);
 	}

@@ -37,6 +37,13 @@ public class ClientHandler extends Thread{
 				sendRequest("UI=ROLL");
 				
 				sendRequest("UI=AUTOPILOT=" + this.fcsconnection.getAutopilotStatus());
+				
+				if(this.fcsconnection.getAutopilotStatus() == 0) {
+					sendRequest("UI=UPDATETHRUST=" + fcsconnection.getThrustSlider());
+					sendRequest("UI=UPDATEALTITUDE=" + fcsconnection.getAltitudeSlider());
+				}
+				
+				
 			 
 				//message = this.in.readLine();    // get input 
 				

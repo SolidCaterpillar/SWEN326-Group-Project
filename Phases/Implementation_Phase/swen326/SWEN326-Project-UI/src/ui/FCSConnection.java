@@ -31,6 +31,15 @@ public class FCSConnection {
 	public int getAutopilotStatus() {
 		return frame.getAutopilotState();
 	}
+	
+	public int getThrustSlider() {
+		return frame.getThrustSliderValue();
+	}
+	
+	public int getAltitudeSlider() {
+		return frame.getAltitudeSliderValue();
+	}
+	
 	public void updateUI(String sensor, String value) {
 		switch (sensor) {
     	case "SPEED": this.frame.updateSensorDataDisplayPanel("SPEED", value); break;

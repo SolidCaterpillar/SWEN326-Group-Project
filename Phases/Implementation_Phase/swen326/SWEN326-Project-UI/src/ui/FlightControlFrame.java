@@ -340,7 +340,7 @@ public class FlightControlFrame extends JFrame {
 	}
 	
 	
-	public int getHeadingSliderValue() {
+	public int getThrustSliderValue() {
 		return this.headingValue;
 	}
 	

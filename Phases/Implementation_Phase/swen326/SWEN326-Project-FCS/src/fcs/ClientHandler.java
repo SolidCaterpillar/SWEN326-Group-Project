@@ -148,6 +148,14 @@ public class ClientHandler extends Thread{
 		case "AUTOPILOT": //$NON-NLS-1$
 			this.flightController.updateAutopilotStatus(value);
 			break;
+			
+		case "UPDATETHRUST": //$NON-NLS-1$
+			this.flightController.updateThrust(value);
+			break;
+			
+		case "UPDATEALTITUDE": //$NON-NLS-1$
+			this.flightController.updateAltitude(value);
+			break;
 		default: 
 			toReturn = "";  //$NON-NLS-1$
 		}
