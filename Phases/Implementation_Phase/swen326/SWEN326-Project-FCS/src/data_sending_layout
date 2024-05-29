@@ -1,33 +1,40 @@
 
 In order to send data between the sockets the flight control system must 
-be able to differentiate what data is coming from what sensor, and also 
-what the data is updating, e.g. the thrust.
+be able to differentiate what data is coming from what module (UI, TESTER, or SIMULATION)
+as well as what sensor the data is targeting, and also the value of the data itself.
 
-So we could send the data by first saying what is being updated, followed 
-by a '=' and then the actual value of the update:
+ - Data is sent in the following message (MSG) format:
 
+MSG    ::= MODULE "=" SENSOR "=" VALUE
+MODULE ::= UI | TESTER | SIMULATOR
+SENSOR ::= THRUST | ALTITUDE | LATITUDE | LONGITUDE | YAW | PITCH | ROLL
+VALUE  ::= \d*.\d*  // any decimal number
+
+Example:
 UI=SPEED=500.0
-TESTER=SPEED=500.0
-SIMULATOR=SPEED=500.0
+TESTER=THURST=91.5
+SIMULATOR=ALTITUDE=20546.586
 
+ - Each module is then sent data back from the FCS that follows
+   much the same format as how the data is sent:
+   
+ 1) The UI receives responses (RESP) from the FCS in the following format:
 
-// USE ABOVE FORMAT, THESE JUST HERE SO WE KNOW WHAT WE NEED TO MAKE AAAAAAAAAA
-THRUST=186.5
-ALTITUDE=20340.00
-LATITUDE=53.34
-LONGITUDE=-35.00
-YAW=145.00
-PITCH=25.78
-ROLL=55.09
+RESP   ::= SENSOR "=" VALUE
+SENSOR ::= THRUST | ALTITUDE | LATITUDE | LONGITUDE | YAW | PITCH | ROLL
+VALUE  ::= \d*.\d*
 
+ 2) The TESTER module receives multiple responses from the FCS. 
+   The first is the return code (RETC) of any performed operation, 
+   and the second is the state of the sensor before the data was 
+   sent along with the state of the sensor after the data 
+   processed (DATA_RESPONSE):
 
-// pseudo code for it receiving data
+RETC        ::= "SUCCESS?" RETURN_CODE
+RETURN_CODE ::= 0 | -1 | -2
 
-String recv = this.in.readLine();
-String[] arr = recv.split("=");
-assert arr.length == 2;
+DATA_RESPONSE ::= VALUE "=" VALUE
+VALUE         ::= \d*.\d*
 
-if (arr[1].charAt(0) == '-')
-	is negative number 
+ 3) The simulator does 
 
-return arr[1].toNumber	
