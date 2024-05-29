@@ -15,10 +15,10 @@ public class Engine {
 	}
 
     public void simulate() {
-    	double percentRange = thrust * 0.20;
+    	double percentRange = thrust * 0.05;
     	double min = thrust - percentRange;
     	double max = thrust + percentRange;
-    	this.output =  min + (max - min) * random.nextDouble(); //generate a 20% range of random between the value of thrust
+    	this.output = min + (max - min) * random.nextDouble(); //generate a 20% range of random between the value of thrust
     }
     
     public Double getValue() {

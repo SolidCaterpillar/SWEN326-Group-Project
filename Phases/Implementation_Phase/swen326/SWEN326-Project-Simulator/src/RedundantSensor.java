@@ -41,10 +41,16 @@ public class RedundantSensor<T>  {
         //System.out.println("v2 " +value2);
         return Math.abs(value1 - value2) <= tolerance;
     }
+
+	public void setThrust(Double value) {
+		for(Sensor<T> sensor : sensors) {
+    		sensor.setValue(value); 
+    	}
+	}
 }
     
 interface Sensor<T> {
 	void setValue(double value);
-    void simulate();
+	void simulate();
     Double getValue();
 }

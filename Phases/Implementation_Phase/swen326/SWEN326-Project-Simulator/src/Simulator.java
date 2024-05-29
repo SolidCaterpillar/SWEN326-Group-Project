@@ -6,7 +6,7 @@ public class Simulator {
 	public static void main(String[] args) {
 	
         RedundantSensor<Double> airspeedSensor = new RedundantSensor<>(Arrays.asList(
-                new AirspeedSensor(), new AirspeedSensor(), new AirspeedSensor()
+                new AirspeedSensor(0), new AirspeedSensor(0), new AirspeedSensor(0)
             ));
             
         RedundantSensor<Double> altitudeSensor = new RedundantSensor<>(Arrays.asList(
@@ -70,7 +70,12 @@ public class Simulator {
 	      timer2.schedule(new TimerTask() {
 	            @Override
 	            public void run() {
+	            	engine.simulate();
+	            	airspeedSensor.setThrust(engine.getValue());
+	            	System.out.println(engine.getValue());
 	            	airspeedSensor.simulate();
+
+	            	
 	            	
 	            	//Request autopilot status
 	            	String autopilot = socket.sendMessage("SIMULATOR=AUTOPILOT");
@@ -80,7 +85,7 @@ public class Simulator {
 	            	
 	            	String airspeed = socket.sendMessage("SIMULATOR=SPEED=" + String.format("%.3f", airspeedSensor.getValue()));
 	            	String thrust = socket.sendMessage("SIMULATOR=THRUST=" + String.format("%.3f", engine.getValue()));
-	        		//System.out.println("airspeed "+ airspeed);
+	        		System.out.println("airspeed "+ airspeed);
 	        		//System.out.println("thrust "+ thrust);
 	            }
 	            
