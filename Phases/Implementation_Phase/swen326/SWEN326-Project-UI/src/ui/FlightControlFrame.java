@@ -55,6 +55,10 @@ public class FlightControlFrame extends JFrame {
     private JSlider headingSlider;
     private int autopilotState;
     
+    private int altitudeValue;
+    private int speedValue;
+    private int headingValue;
+    
     // Sensor Display Panel
     private JLabel airspeed = new JLabel();
     private JLabel altitude = new JLabel();
@@ -300,8 +304,20 @@ public class FlightControlFrame extends JFrame {
         autopilotLight = new JLabel(this.autopilotOff);
         
         altitudeSlider = new JSlider(1, 0, 13000, 10000);
+        altitudeSlider.addChangeListener(e -> {
+                altitudeValue = altitudeSlider.getValue();
+        });
+        
         speedSlider = new JSlider(1, 0, 860, 700);
+        speedSlider.addChangeListener(e -> {
+            speedValue = speedSlider.getValue();
+        });
+        
         headingSlider = new JSlider(1, 0, 360, 0);
+        headingSlider.addChangeListener(e -> {
+            headingValue = headingSlider.getValue();
+        });
+        
         
         
         autopilotControlPanel.add(autopilotEngagedButton);
@@ -313,6 +329,26 @@ public class FlightControlFrame extends JFrame {
         
     }
     
+	
+	public int getAltitudeSliderValue() {
+		return this.altitudeValue;
+	}
+	
+	
+	public int getSpeedSliderValue() {
+		return this.speedValue;
+	}
+	
+	
+	public int getHeadingSliderValue() {
+		return this.headingValue;
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getAutopilotState() {
 		return autopilotState;
 	}
