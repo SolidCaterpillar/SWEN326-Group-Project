@@ -18,6 +18,8 @@ public class FlightController {
     
     private Aircraft aircraft;
     private Aircraft testAircraft;
+    private ServerSocket serverSocket;
+	private Socket clientSocket;
     
     static PilotState currentPilotState = PilotState.PILOT_CONTOL;
     static DangerState currentDangerSate = DangerState.NORMAL;   
@@ -33,23 +35,17 @@ public class FlightController {
     public void start(int port) {
     	this.aircraft = new Aircraft(0, 0, 0, 0, 500, 0);
     	this.testAircraft = new Aircraft(0, 0, 0, 0, 500, 0);  // don't change this ones max thrust value please
-    	
         try {
-        	ServerSocket serverSocket = new ServerSocket(port); 
-    		Socket clientSocket = serverSocket.accept();
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        	this.serverSocket = new ServerSocket(port); 
+        	this.clientSocket = this.serverSocket.accept();
+            PrintWriter out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
             
-            Thread t = new ClientHandler(this, clientSocket, in, out);
+            Thread t = new ClientHandler(this, this.clientSocket, in, out);
             t.start();
-            
-//            serverSocket.close();
-//            clientSocket.close();
         }catch (IOException e) {
             e.printStackTrace();
-            
         }
-        
     }
     /**
      * 
@@ -76,17 +72,6 @@ public class FlightController {
 		default: return -2;
     	}
     }
-    
-//    public void close(ServerSocket s, Socket c, PrintWriter o, BufferedReader b) {
-//        try {
-//            b.close();
-//            c.close();
-//            o.close();
-//            b.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
     
     public Aircraft getAircraft() {
     	return this.aircraft;
