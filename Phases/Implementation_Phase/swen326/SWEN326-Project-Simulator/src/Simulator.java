@@ -46,13 +46,12 @@ public class Simulator {
 	            	attitudePitch.simulate();
 	            	attitudeRoll.simulate();
 	            	attitudeYaw.simulate();
-	            	//String test = socket.sendMessage("SIMULATOR=SPEED=" + altitudeSensor.getValue());
-	            	//String altitude = socket.sendMessage("ALTITUDE=SPEED=" + altitudeSensor.getValue());
-	            	//String pitch = socket.sendMessage("PITCH=" + attitudePitch.getValue());
-	            	//String roll = socket.sendMessage("ROLL=" + attitudeRoll.getValue());
-	            	//String yaw = socket.sendMessage("YAW=" + attitudeYaw.getValue());
+	            	String altitude = socket.sendMessage("SIMULATOR=ALTITUDE=" + String.format("%.3f", altitudeSensor.getValue()));
+	            	String pitch = socket.sendMessage("SIMULATOR=PITCH=" + String.format("%.3f", attitudePitch.getValue()));
+	            	String roll = socket.sendMessage("SIMULATOR=ROLL=" + String.format("%.3f", attitudeRoll.getValue()));
+	            	String yaw = socket.sendMessage("SIMULATOR=YAW=" + String.format("%.3f", attitudeYaw.getValue()));
 	            	
-	            	//System.out.println("test " +test);
+	            	
 	        		//System.out.println("altitude " +altitude);
 	        		//System.out.println("pitch " +pitch);
 	        		//System.out.println("roll " +roll);
@@ -69,9 +68,9 @@ public class Simulator {
 	            public void run() {
 	            	airspeedSensor.simulate();
 	            	engine.simulate();
-	            	String airspeed = socket.sendMessage("SIMULATOR=SPEED=" + airspeedSensor.getValue());
-	            	//String thrust = socket.sendMessage("THRUST=" + airspeedSensor.getValue());
-	        		System.out.println("airspeed "+ airspeed);
+	            	String airspeed = socket.sendMessage("SIMULATOR=SPEED=" + String.format("%.3f", airspeedSensor.getValue()));
+	            	String thrust = socket.sendMessage("SIMULATOR=THRUST=" + String.format("%.3f", airspeedSensor.getValue()));
+	        		//System.out.println("airspeed "+ airspeed);
 	        		//System.out.println("thrust "+ thrust);
 	            }
 	            
