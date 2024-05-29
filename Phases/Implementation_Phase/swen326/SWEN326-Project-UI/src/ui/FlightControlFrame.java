@@ -53,6 +53,7 @@ public class FlightControlFrame extends JFrame {
     private JSlider altitudeSlider;
     private JSlider speedSlider;
     private JSlider headingSlider;
+    private int autopilotState;
     
     // Sensor Display Panel
     private JLabel airspeed = new JLabel();
@@ -286,11 +287,14 @@ public class FlightControlFrame extends JFrame {
         	if (e.getStateChange() == ItemEvent.SELECTED) {
         		if (Math.random() >= faultyAutoPilotChance) {
         			this.autopilotLight.setIcon(this.autopilotOn);
+        			autopilotState = 1;
         		} else {
         			this.autopilotLight.setIcon(this.autopilotFaulty);
+        			autopilotState = -1;
         		}
         	} else {
         		this.autopilotLight.setIcon(this.autopilotOff);
+        		autopilotState =0;
         	}
         });
         autopilotLight = new JLabel(this.autopilotOff);
@@ -309,6 +313,9 @@ public class FlightControlFrame extends JFrame {
         
     }
     
+	public int getAutopilotState() {
+		return autopilotState;
+	}
 	
 	/**
 	 * Get the sensor Data Display Panel
@@ -371,21 +378,35 @@ public class FlightControlFrame extends JFrame {
     	switch (sensor) {
 	        case "SPEED": this.airspeed.setForeground(Color.BLUE);
 	        			  this.airspeed.setText("AirSpeed : " + value);
-	        			  this.airspeed.setForeground(Color.BLACK);
+	        			  this.airspeed.setForeground(Color.WHITE);
 	        			  break;
-	        case "THRUST": this.engine.setText("Thrust : " + value);
+	        case "THRUST": this.engine.setForeground(Color.BLUE);
+	        			   this.engine.setText("Thrust : " + value);
+	        			   this.engine.setForeground(Color.WHITE);
 	        			   break;
-	        case "ALTITUDE": this.altitude.setText("Altitude : " + value);
+	        case "ALTITUDE":this.altitude.setForeground(Color.BLUE); 
+	        				this.altitude.setText("Altitude : " + value);
+	        				this.altitude.setForeground(Color.WHITE);
 	        			     break;
-	        case "LATITUDE": this.latitude.setText("Latitude : " + value);
+	        case "LATITUDE":this.latitude.setForeground(Color.BLUE); 
+	        				this.latitude.setText("Latitude : " + value);
+	        				this.latitude.setForeground(Color.WHITE);
 	        			     break;
-	        case "LONGITUDE": this.longitude.setText("Longitude : " + value);
+	        case "LONGITUDE": this.longitude.setForeground(Color.BLUE);
+	        				  this.longitude.setText("Longitude : " + value);
+	        				  this.longitude.setForeground(Color.WHITE);
 	        			      break;
-	        case "YAW": this.yaw.setText("Yaw : " + value);
+	        case "YAW": this.yaw.setForeground(Color.BLUE);
+	        			this.yaw.setText("Yaw : " + value);
+	        			this.yaw.setForeground(Color.WHITE);
 	        			 break;
-	        case "PITCH": this.pitch.setText("Pitch : " + value);
+	        case "PITCH": this.pitch.setForeground(Color.BLUE);
+	        			  this.pitch.setText("Pitch : " + value);
+	        			  this.pitch.setForeground(Color.WHITE);
 	        			  break;
-	        case "ROLL": this.roll.setText("Roll : " + value);
+	        case "ROLL": this.roll.setForeground(Color.BLUE);
+	        			 this.roll.setText("Roll : " + value);
+	        			 this.roll.setForeground(Color.WHITE);
 	        			 break;
     	}
     }

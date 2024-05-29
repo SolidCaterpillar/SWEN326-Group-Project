@@ -73,6 +73,13 @@ public class FlightController {
     	}
     }
     
+    public void updateAutopilotStatus(double d) {
+		this.aircraft.setAutopilotStatus(d);
+	}
+    public double getAutopilotStatus() {
+    	return this.aircraft.getAutopilotStatus();
+    }
+    
     public Aircraft getAircraft() {
     	return this.aircraft;
     }

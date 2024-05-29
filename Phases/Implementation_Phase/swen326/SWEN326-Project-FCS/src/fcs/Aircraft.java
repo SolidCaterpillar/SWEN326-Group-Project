@@ -17,6 +17,8 @@ public class Aircraft {
     private final int minThurst;
     private final int maxThurst;
     
+    private double autopilotStatus;
+    
     public Aircraft(double alt, double lat, double lon, int minThrust_, int maxThurst_, double yaw_) {
         // assert the provided arguments are valid
         assert alt >= 0;
@@ -31,6 +33,7 @@ public class Aircraft {
         this.altitude = alt;
         this.latitude = lat;
         this.longitude = lon;
+        this.autopilotStatus = 0;
         
         this.yaw = yaw_;    // yaw is relative to north
         this.pitch = 0;    // plane starts from level
@@ -52,6 +55,11 @@ public class Aircraft {
     	}
     	return 0;
     }
+    
+    public void setAutopilotStatus(double d) {
+    	this.autopilotStatus = d;
+    }
+    public double getAutopilotStatus() {return this.autopilotStatus;}
     
     public double getSpeed() { return this.speed; }
     public int setSpeed(double speed1) { 

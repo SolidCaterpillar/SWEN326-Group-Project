@@ -46,6 +46,9 @@ public class Simulator {
 	            	attitudePitch.simulate();
 	            	attitudeRoll.simulate();
 	            	attitudeYaw.simulate();
+	            	
+	            	
+	            	
 	            	String altitude = socket.sendMessage("SIMULATOR=ALTITUDE=" + String.format("%.3f", altitudeSensor.getValue()));
 	            	String pitch = socket.sendMessage("SIMULATOR=PITCH=" + String.format("%.3f", attitudePitch.getValue()));
 	            	String roll = socket.sendMessage("SIMULATOR=ROLL=" + String.format("%.3f", attitudeRoll.getValue()));
@@ -56,6 +59,7 @@ public class Simulator {
 	        		//System.out.println("pitch " +pitch);
 	        		//System.out.println("roll " +roll);
 	        		//System.out.println("yaw " +yaw);
+	            	
 	            }
 	            
 	        }, 0, 500);
@@ -67,9 +71,15 @@ public class Simulator {
 	            @Override
 	            public void run() {
 	            	airspeedSensor.simulate();
-	            	engine.simulate();
+	            	
+	            	//Request autopilot status
+	            	String autopilot = socket.sendMessage("SIMULATOR=AUTOPILOT");
+	            	if(autopilot.equals("1.0")) {
+	            		engine.simulate();
+	            	}
+	            	
 	            	String airspeed = socket.sendMessage("SIMULATOR=SPEED=" + String.format("%.3f", airspeedSensor.getValue()));
-	            	String thrust = socket.sendMessage("SIMULATOR=THRUST=" + String.format("%.3f", airspeedSensor.getValue()));
+	            	String thrust = socket.sendMessage("SIMULATOR=THRUST=" + String.format("%.3f", engine.getValue()));
 	        		//System.out.println("airspeed "+ airspeed);
 	        		//System.out.println("thrust "+ thrust);
 	            }

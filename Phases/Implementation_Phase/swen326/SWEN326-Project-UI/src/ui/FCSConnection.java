@@ -27,6 +27,10 @@ public class FCSConnection {
 			e.printStackTrace();
 		}
 	}
+	
+	public int getAutopilotStatus() {
+		return frame.getAutopilotState();
+	}
 	public void updateUI(String sensor, String value) {
 		switch (sensor) {
     	case "SPEED": this.frame.updateSensorDataDisplayPanel("SPEED", value); break;

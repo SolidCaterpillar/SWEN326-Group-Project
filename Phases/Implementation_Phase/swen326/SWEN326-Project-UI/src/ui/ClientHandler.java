@@ -27,14 +27,16 @@ public class ClientHandler extends Thread{
 	public void run() {
 		//try {
 			while(this.simulatorRunning) {
-				requestValue("UI=SPEED=AAA");
-				requestValue("UI=THRUST=AAA");
-				requestValue("UI=ALTITUDE=AAA");
-				requestValue("UI=LATITUDE=AAA");
-				requestValue("UI=LONGITUDE=AAA");
-				requestValue("UI=YAW=AAA");
-				requestValue("UI=PITCH=AAA");
-				requestValue("UI=ROLL=AAA");
+				sendRequest("UI=SPEED");
+				sendRequest("UI=THRUST");
+				sendRequest("UI=ALTITUDE");
+				sendRequest("UI=LATITUDE");
+				sendRequest("UI=LONGITUDE");
+				sendRequest("UI=YAW");
+				sendRequest("UI=PITCH");
+				sendRequest("UI=ROLL");
+				
+				sendRequest("UI=AUTOPILOT=" + this.fcsconnection.getAutopilotStatus());
 			 
 				//message = this.in.readLine();    // get input 
 				
@@ -60,16 +62,19 @@ public class ClientHandler extends Thread{
 		//}
 	}
 
-	public void requestValue(String code) {
+	public void sendRequest(String code) {
 		String message = this.fcsconnection.sendMessage(code);
-		System.out.println(message);
 		
 		String[] data = message.split("="); //$NON-NLS-1$
 		
 		String sensorType = data[0];
-		String value = data[1];
+		if(data.length == 2) {
+			String value = data[1];
+			this.fcsconnection.updateUI(sensorType, value);
+		}
 		
-		this.fcsconnection.updateUI(sensorType, value);
+		
+		
 	}
 	public void close() {
 		try {

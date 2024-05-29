@@ -23,6 +23,7 @@ public class ClientHandler extends Thread{
 	@Override
 	public void run() {
 		String received;
+		double number = 0;
 		try {
 			while (this.simulatorRunning) {
 			    received = this.in.readLine();    // get input 
@@ -30,14 +31,17 @@ public class ClientHandler extends Thread{
 			    	continue;
 			    }
 				String[] data = received.split("="); //$NON-NLS-1$
-				assert data.length == 3;
+				//assert data.length == 3;
 				
 				String projectType = data[0];
 				String sensorType = data[1];
-				//String number = data[2];
+				if(data.length == 3) {
+					number = stringToDouble(data[2]);
+				}
+				
 				
 				if("UI".equals(projectType)) { //$NON-NLS-1$
-					String toReturn = sensorType + "=" + handleUICode(sensorType); //$NON-NLS-1$
+					String toReturn = sensorType + "=" + handleUICode(sensorType, number); //$NON-NLS-1$
 					this.out.println(toReturn);
 					
 				} else if("TESTER".equals(projectType)) { //$NON-NLS-1$
@@ -53,9 +57,14 @@ public class ClientHandler extends Thread{
 					this.out.println("SUCCESS?"+returnCode); //$NON-NLS-1$
 					this.out.println(oldValue+"="+newValue); //$NON-NLS-1$
 				} else if("SIMULATOR".equals(projectType)) { //$NON-NLS-1$
-					double value = stringToDouble(data[2]);
-					this.flightController.updateAircraftState(sensorType, value, false);
-					this.out.println(received);
+					if("AUTOPILOT".equals(sensorType)){ //$NON-NLS-1$
+						this.out.println(this.flightController.getAutopilotStatus());
+					}else {
+						double value = stringToDouble(data[2]);
+						this.flightController.updateAircraftState(sensorType, value, false);
+						this.out.println(received);
+					}
+					
 				}
 				
 				
@@ -75,6 +84,7 @@ public class ClientHandler extends Thread{
 			return;
 		}
 	}
+	
 	
 	private static double getAircraftData(String dataType, Aircraft ac) {
 		switch(dataType){
@@ -100,7 +110,7 @@ public class ClientHandler extends Thread{
 	}
 	
 	
-	private String handleUICode(String code) {
+	private String handleUICode(String code, double value) {
 		String toReturn = "";  //$NON-NLS-1$ 
 		switch(code){
 		case "SPEED": //$NON-NLS-1$
@@ -134,6 +144,9 @@ public class ClientHandler extends Thread{
 		case "ROLL": //$NON-NLS-1$
 			double roll = this.flightController.getAircraft().getRoll();
 			toReturn = String.valueOf(roll);
+			break;
+		case "AUTOPILOT": //$NON-NLS-1$
+			this.flightController.updateAutopilotStatus(value);
 			break;
 		default: 
 			toReturn = "";  //$NON-NLS-1$
