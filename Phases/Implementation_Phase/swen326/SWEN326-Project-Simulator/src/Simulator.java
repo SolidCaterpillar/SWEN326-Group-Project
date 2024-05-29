@@ -70,23 +70,26 @@ public class Simulator {
 	      timer2.schedule(new TimerTask() {
 	            @Override
 	            public void run() {
-	            	engine.simulate();
-	            	airspeedSensor.setThrust(engine.getValue());
-	            	System.out.println(engine.getValue());
+	            	String autopilot = socket.sendMessage("SIMULATOR=AUTOPILOT");
+	            	if(autopilot.equals("1.0")) {
+	            		engine.simulate();
+	            	}else {
+	            		
+	            	}
+	            	airspeedSensor.setValue(engine.getValue());
 	            	airspeedSensor.simulate();
+	            	
 
 	            	
 	            	
 	            	//Request autopilot status
-	            	String autopilot = socket.sendMessage("SIMULATOR=AUTOPILOT");
-	            	if(autopilot.equals("1.0")) {
-	            		engine.simulate();
-	            	}
+	            	
+	            	
 	            	
 	            	String airspeed = socket.sendMessage("SIMULATOR=SPEED=" + String.format("%.3f", airspeedSensor.getValue()));
 	            	String thrust = socket.sendMessage("SIMULATOR=THRUST=" + String.format("%.3f", engine.getValue()));
 	        		System.out.println("airspeed "+ airspeed);
-	        		//System.out.println("thrust "+ thrust);
+	        		System.out.println("thrust "+ thrust);
 	            }
 	            
 	        }, 0, 1000);

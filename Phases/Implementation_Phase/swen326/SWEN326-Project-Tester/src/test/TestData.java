@@ -54,7 +54,7 @@ public class TestData {
 	/**
 	 * suppliers of good data
 	 */
-	static Supplier<DataPiece> speed = () -> generateGoodData(0.0, 1000.0); // 3.2.1
+	static Supplier<DataPiece> speed = () -> generateGoodData(0.0, 2000.0); // 3.2.1
     static Supplier<DataPiece> thrust = () -> generateGoodData(0.0, 500.0); // 3.2.4
     static Supplier<DataPiece> altitude = () -> generateGoodData(0.0, 30000.0); // 3.2.2
     static Supplier<DataPiece> latitude = () -> generateGoodData(-90.0, 90.0); // 3.2.2
@@ -64,7 +64,7 @@ public class TestData {
 	/**
 	 * suppliers of bad data
 	 */
-    static Supplier<DataPiece> badSpeed = () -> generateBadData(0.0, 1000.0); // 3.2.1
+    static Supplier<DataPiece> badSpeed = () -> generateBadData(0.0, 2000.0); // 3.2.1
     static Supplier<DataPiece> badThrust = () -> generateBadData(0.0, 500.0); // 3.2.4
     static Supplier<DataPiece> badAltitude = () -> generateBadData(0.0, 30000.0); // 3.2.2
     static Supplier<DataPiece> badLatitude = () -> generateBadData(-90.0, 90.0); // 3.2.2

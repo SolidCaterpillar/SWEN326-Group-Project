@@ -64,7 +64,7 @@ public class Aircraft {
     public double getSpeed() { return this.speed; }
     public int setSpeed(double speed1) { 
     	// assuming the plane can't go faster than 1000
-    	int check = preCondition(speed1, 0, 1000);
+    	int check = preCondition(speed1, 0, 2000);
     	if (check == 0) this.speed = speed1;
     	return check;
     }
