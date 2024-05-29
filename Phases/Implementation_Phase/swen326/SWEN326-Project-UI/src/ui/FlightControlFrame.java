@@ -58,7 +58,7 @@ public class FlightControlFrame extends JFrame {
 	private int altitudeValue;
 	private int thrustValue;
 	private JLabel altitudeLabel = new JLabel("Set Altitude : -");
-	private JLabel thrustLabel = new JLabel("Set Thrust : -");
+	private JLabel thrustLabel = new JLabel("Set Engine Thrust : -");
 
 	// Sensor Display Panel
 	private JLabel airspeed = new JLabel();
@@ -325,26 +325,28 @@ public class FlightControlFrame extends JFrame {
 
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
 		labelTable.put(0, new JLabel("0"));
+		labelTable.put(15000, new JLabel("Altitude"));
 		labelTable.put(30000, new JLabel("30000"));
 
 		altitudeSlider.setLabelTable(labelTable);
 		altitudeSlider.setPaintLabels(true);
-		altitudeSlider.setBounds(20, 100, 50, 200);
+		altitudeSlider.setBounds(20, 100, 100, 200);
 		altitudeLabel.setBounds(20, 320, 200, 30);
 
 		thrustSlider = new JSlider(1, 0, 500, 0);
 		thrustSlider.addChangeListener(e -> {
 			thrustValue = thrustSlider.getValue();
-			thrustLabel.setText("Set Thrust : " + ((JSlider) e.getSource()).getValue());
+			thrustLabel.setText("Set Engine Thrust : " + ((JSlider) e.getSource()).getValue());
 		});
 
 		Hashtable<Integer, JLabel> labelTable2 = new Hashtable<Integer, JLabel>();
 		labelTable2.put(0, new JLabel("0"));
+		labelTable2.put(250, new JLabel("Engine Thrust"));
 		labelTable2.put(500, new JLabel("500"));
 
 		thrustSlider.setLabelTable(labelTable2);
 		thrustSlider.setPaintLabels(true);
-		thrustSlider.setBounds(90, 100, 50, 200);
+		thrustSlider.setBounds(150, 100, 100, 200);
 		thrustLabel.setBounds(20, 370, 200, 30);
 
 		autopilotControlPanel.add(autopilotEngagedButton);
