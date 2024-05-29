@@ -49,7 +49,7 @@ public class FlightControlFrame extends JFrame {
 
 	// AutoPilot Panel
 	private JCheckBox autopilotEngagedButton;
-	private double faultyAutoPilotChance = 0.2;
+	private double faultyAutoPilotChance = 0.4;
 	private JLabel autopilotLight;
 	private JSlider altitudeSlider;
 	private JSlider thrustSlider;
@@ -302,13 +302,22 @@ public class FlightControlFrame extends JFrame {
 				if (Math.random() >= faultyAutoPilotChance) {
 					this.autopilotLight.setIcon(this.autopilotOn);
 					autopilotState = 1;
+					warning.setText("Warnings: ");
+					mitigation.setText("Mitigations: ");
+					actionPlan.setText("Action Plan: ");
 				} else {
 					this.autopilotLight.setIcon(this.autopilotFaulty);
 					autopilotState = -1;
+					warning.setText("<html>Warnings: <br><br><ol><li>Faulty Autopilot</li></ol></html>");
+					mitigation.setText("<html>Mitigations: <br><br><ol><li>Engage Autopilot in less turbulence</li><li>Moniitor Aircraft status</li></ol></html>");
+					actionPlan.setText("<html>Action Plan: <br><br><ol><li>Disengage Autopilot</li><li>Use Manual Override</li><li>Turn on Autopilot after 5 seconds</li></ol></html>");
 				}
 			} else {
 				this.autopilotLight.setIcon(this.autopilotOff);
 				autopilotState = 0;
+				warning.setText("Warnings: ");
+				mitigation.setText("Mitigations: ");
+				actionPlan.setText("Action Plan: ");
 			}
 		});
 		autopilotLight = new JLabel(this.autopilotOff);
@@ -376,7 +385,7 @@ public class FlightControlFrame extends JFrame {
 	}
 
 	/**
-	 * get autooilot state
+	 * get autopilot state
 	 * @return an int signifying whether autopilot is on, off or not working
 	 */
 	public int getAutopilotState() {
@@ -512,7 +521,7 @@ public class FlightControlFrame extends JFrame {
 		mitigation.setOpaque(true);
 		hazardAlertsPanel.add(mitigation);
 
-		actionPlan.setText("Action Plan:");
+		actionPlan.setText("Action Plans:");
 		this.modifyLabel(actionPlan);
 		actionPlan.setBackground(Color.YELLOW);
 		actionPlan.setForeground(Color.BLACK);
