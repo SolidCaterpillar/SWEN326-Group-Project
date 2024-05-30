@@ -6,8 +6,8 @@ as well as what sensor the data is targeting, and also the value of the data its
  - Data is sent in the following message (MSG) format:
 
 MSG    ::= MODULE "=" SENSOR "=" VALUE
-MODULE ::= UI | TESTER | SIMULATOR
-SENSOR ::= THRUST | ALTITUDE | LATITUDE | LONGITUDE | YAW | PITCH | ROLL
+MODULE ::= "UI" | "TESTER" | "SIMULATOR"
+SENSOR ::= "THRUST" | "ALTITUDE" | "LATITUDE" | "LONGITUDE" | "YAW" | "PITCH" | "ROLL"
 VALUE  ::= \d*.\d*  // any decimal number
 
 Example:
@@ -21,7 +21,7 @@ SIMULATOR=ALTITUDE=20546.586
  1) The UI receives responses (RESP) from the FCS in the following format:
 
 RESP   ::= SENSOR "=" VALUE
-SENSOR ::= THRUST | ALTITUDE | LATITUDE | LONGITUDE | YAW | PITCH | ROLL
+SENSOR ::= "THRUST" | "ALTITUDE" | "LATITUDE" | "LONGITUDE" | "YAW" | "PITCH" | "ROLL"
 VALUE  ::= \d*.\d*
 
  2) The TESTER module receives multiple responses from the FCS. 
