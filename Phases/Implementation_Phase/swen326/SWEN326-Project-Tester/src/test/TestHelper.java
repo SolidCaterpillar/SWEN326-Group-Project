@@ -1,12 +1,6 @@
 package test;
 
-import java.util.List;
-
 public class TestHelper {
-	
-	static final List<String> SENSORS = List.of("SPEED", "THRUST", "ALTITUDE", "LATITUDE", "LONGITUDE");
-	
-	static final List<String> ATTITUDE_SENSORS = List.of("YAW", "PITCH", "ROLL");
 	
 	/**
 	 * Generate either a good of bad piece of sensor data depending upon 
@@ -16,7 +10,7 @@ public class TestHelper {
 	 * @param good
 	 * @return the new piece of data
 	 */
-	public static DataPiece getDataForSensor(String sensor, boolean good) {
+	static DataPiece getDataForSensor(String sensor, boolean good) {
 		switch(sensor){
 		case "SPEED": 
 			return good ? TestData.speed.get() : TestData.badSpeed.get();
@@ -41,7 +35,7 @@ public class TestHelper {
 	 * @param sensor
 	 * @return the desired piece of data
 	 */
-	public static DataPiece getDataFromAttitudeSensor(AttitudeSensor as, String sensor) {
+	static DataPiece getDataFromAttitudeSensor(AttitudeSensor as, String sensor) {
 		switch(sensor){
 		case "YAW": 
 			return as.yaw();
@@ -66,12 +60,6 @@ public class TestHelper {
 		String[] arr = resp.split("\\?");
 		assert arr.length == 2;
 	    return Integer.valueOf(arr[1]);
-	    
-	    //if (arr[1].charAt(0) == '-') {
-	    //	arr[1] = arr[1].substring(1, arr[1].length());
-	    //	return Integer.parseInt(arr[1]) * -1;
-	    //}
-	    //return Integer.parseInt(arr[1]);
 	}
 	/**
 	 * Given a response from the flight controller of the form:
@@ -88,10 +76,5 @@ public class TestHelper {
 		String[] arr = resp.split("=");
 		assert arr.length == 2;
 		return Double.valueOf(arr[idx]);
-	    	
-	    //if (arr[idx].charAt(0) == '-') {
-	    //	arr[idx] = arr[idx].substring(1, arr[idx].length());
-	    //	return Double.parseDouble(arr[idx]) * -1;
-	    //}
 	}
 }

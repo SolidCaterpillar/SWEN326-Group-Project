@@ -18,7 +18,7 @@ public class Tester {
 	 */
 	@Test
 	public void test1GoodSensors() {
-		for (String sensor : TestHelper.SENSORS) {
+		for (String sensor : TestData.SENSORS) {
 			// get a piece of good data
 			DataPiece data = TestHelper.getDataForSensor(sensor, true);
 
@@ -44,7 +44,7 @@ public class Tester {
 	public void test2GoodAttitudeSensors() {
 		// generate a good attitude sensor
 		AttitudeSensor as = TestData.generateAttitudeSensor(true);
-		for (String sensor : TestHelper.ATTITUDE_SENSORS) {
+		for (String sensor : TestData.ATTITUDE_SENSORS) {
 			// retrieve the data from an attitude sensor
 			DataPiece data = TestHelper.getDataFromAttitudeSensor(as, sensor);
 
@@ -68,7 +68,7 @@ public class Tester {
 	 */
 	@Test
 	public void test3BadSensors() {
-		for (String sensor : TestHelper.SENSORS) {
+		for (String sensor : TestData.SENSORS) {
 			// get a piece of bad data
 			DataPiece data = TestHelper.getDataForSensor(sensor, false);
 
@@ -95,7 +95,7 @@ public class Tester {
 	public void test4BadAttitudeSensors() {
 		// generate a bad attitude sensor
 		AttitudeSensor as = TestData.generateAttitudeSensor(false);
-		for (String sensor : TestHelper.ATTITUDE_SENSORS) {
+		for (String sensor : TestData.ATTITUDE_SENSORS) {
 			// retrieve the data from an attitude sensor
 			DataPiece data = TestHelper.getDataFromAttitudeSensor(as, sensor);
 
@@ -120,7 +120,7 @@ public class Tester {
 	 */
 	@Test
 	public void test5BadSensorNames() {
-		for (String sensor : TestHelper.SENSORS) {
+		for (String sensor : TestData.SENSORS) {
 			DataPiece data = TestHelper.getDataForSensor(sensor, true);
 			
 			// make a bad sensor name
