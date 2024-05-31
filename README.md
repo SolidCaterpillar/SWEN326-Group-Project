@@ -17,6 +17,20 @@
 3. Samuel (Sam) Richardson
 4. Aidan (Lupi) Robins.
 5. Risheet Surya Peri
+
+---
+
+### Run the Project
+
+Run these Java Files in the same following order:
+
+1. `/Phases/Implementation_Phase/swen326/SWEN326-Project-FCS/src/fcs/FlightController.java`
+2. `/Phases/Implementation_Phase/swen326/SWEN326-Project-Simulator/src/Simulator.java`
+3. `/Phases/Implementation_Phase/swen326/SWEN326-Project-Tester/src/test/Tester.java `    as JUnit Test
+4. `/Phases/Implementation_Phase/swen326/SWEN326-Project-UI/src/ui/UI.java`
+
+To develop the system we used **Eclipse**.
+
 ---
 ### Project Hierarchy
 
