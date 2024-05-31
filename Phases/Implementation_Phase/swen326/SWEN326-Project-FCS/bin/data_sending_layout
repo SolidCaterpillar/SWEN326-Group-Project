@@ -1,0 +1,42 @@
+
+In order to send data between the sockets the flight control system must 
+be able to differentiate what data is coming from what module (UI, TESTER, or SIMULATION)
+as well as what sensor the data is targeting, and also the value of the data itself.
+
+ - Data is sent in the following message (MSG) format:
+
+MSG    ::= MODULE "=" SENSOR "=" VALUE
+MODULE ::= "UI" | "TESTER" | "SIMULATOR"
+SENSOR ::= "THRUST" | "ALTITUDE" | "LATITUDE" | "LONGITUDE" | "YAW" | "PITCH" | "ROLL"
+VALUE  ::= \d*.\d*  // any decimal number
+
+Example:
+UI=SPEED=500.0
+TESTER=THURST=91.5
+SIMULATOR=ALTITUDE=20546.586
+
+ - Each module is then sent data back from the FCS that follows
+   much the same format as how the data is sent:
+   
+ 1) The UI receives responses (RESP) from the FCS in the following format:
+
+RESP   ::= SENSOR "=" VALUE
+SENSOR ::= "THRUST" | "ALTITUDE" | "LATITUDE" | "LONGITUDE" | "YAW" | "PITCH" | "ROLL"
+VALUE  ::= \d*.\d*
+
+ 2) The TESTER module receives multiple responses from the FCS. 
+   The first is the return code (RETC) of any performed operation, 
+   and the second is the state of the sensor before the data was 
+   sent along with the state of the sensor after the data 
+   processed (DATA_RESPONSE):
+
+RETC        ::= "SUCCESS?" RETURN_CODE
+RETURN_CODE ::= 0 | -1 | -2
+
+DATA_RESPONSE ::= VALUE "=" VALUE
+VALUE         ::= \d*.\d*
+
+ 3) The simulator currently receives a response from the FCS,
+    however, the response itself is never unpacked or utilised. 
+    [UPDATE?] 
+
