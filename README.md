@@ -22,14 +22,20 @@
 
 ### Run the Project
 
+To develop the system we used **Eclipse**.
+
+P.S. If the `SWEN326-Project-FCS` package comes with an error in eclipse:
+1. Right Click and click on `Build Path` then `Configure Build Path`
+2. Double click on the file underneath `Class Path`
+3. Navigate to the root directory of this repository and select the `.jar` file
+4. Click on `Apply and Close`
+
 Run these Java Files in the same following order:
 
 1. `/Phases/Implementation_Phase/swen326/SWEN326-Project-FCS/src/fcs/FlightController.java`
 2. `/Phases/Implementation_Phase/swen326/SWEN326-Project-Simulator/src/Simulator.java`
 3. `/Phases/Implementation_Phase/swen326/SWEN326-Project-Tester/src/test/Tester.java `    as JUnit Test
 4. `/Phases/Implementation_Phase/swen326/SWEN326-Project-UI/src/ui/UI.java`
-
-To develop the system we used **Eclipse**.
 
 ---
 ### Project Hierarchy
