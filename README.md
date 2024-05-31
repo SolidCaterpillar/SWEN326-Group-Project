@@ -24,10 +24,10 @@ As of now:
             * `Software Verification Plan (SVP)`
             * `Pilot UI Plan`
         * Requirements Phase
-            * `Fault Tree Analysis`
             * `Requirements Traceability Matrix`
         * Design Phase
             * `UML Diagram`
+            * `Fault Tree Analysis`
         * Implementation Phase
             * `CODE BASE with Tests`
         * Integration Phase
